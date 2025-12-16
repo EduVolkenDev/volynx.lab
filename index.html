@@ -52,7 +52,14 @@
         linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 38%, var(--bg2) 100%);
       min-height:100vh;
       overflow-x:hidden;
+      animation: fadeIn 1s ease-in forwards;
+      animation-delay: 1.5s;
     }
+
+    @keyframes fadeIn {
+  0% { opacity: 0; } /* Começa invisível */
+  100% { opacity: 1; } /* Termina totalmente visível */
+}
 
     /* subtle noise */
     body::before{
@@ -78,14 +85,16 @@
 
     /* Header */
     header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(5,23,18,.72), rgba(5,23,18,.30));
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
+      position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(31px);
+  -webkit-backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, rgba(5,23,18,.72), rgba(5,23,18,.30));
+  border-bottom: 2px solid rgba(10, 64, 24, 0.6);
+  border-top: 10px solid rgba(12, 81, 13, 0.6);
+}
+    
 
     .topbar{
       display:flex;
@@ -93,64 +102,69 @@
       justify-content:space-between;
       gap:16px;
       padding: 12px 0;
-      flex-wrap: nowrap; /* desktop: tudo em uma linha */
+      flex-wrap: nowrap; /* trava em uma linha no desktop */
     }
 
-    /* Brand */
+    /* Brand + eye behind */
     .brand{
+      position:relative;
       display:flex;
       align-items:center;
       gap:12px;
       flex: 0 0 auto;
       min-width:auto;
-      position:relative;
     }
 
-    /* olho atrás da LOGO (ancorado no ícone) */
-    .logoWrap{
-      position:relative;
-      width:44px;
-      height:44px;
-      flex: 0 0 auto;
+    .brandEye{
+      position: absolute;
+  left: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 80px;
+  opacity: 2;
+  z-index: 1;
+  pointer-events: none;
     }
-    .logoWrap .brandLogo{
-      width:44px;
-      height:44px;
-      object-fit:contain;
-      position:relative;
-      z-index:2;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
+    .brandEye img{
+      width: 70%;
+  height: 70%;
+  object-fit: contain;
+  filter: drop-shadow(0px 0px 10px rgb(130, 231, 179));
+  margin-left: 55px;
+  margin-top: 10px;
     }
-    .logoWrap .brandEye{
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform: translate(-50%, -50%);
-      width:64px;
-      height:64px;
-      object-fit:contain;
-      opacity:.22; /* ajuste fino: .18 a .30 */
-      z-index:1;
-      pointer-events:none;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,.55));
+
+    .brandLogo{
+      width: 100px;
+  height: 50px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0px 20px rgb(180, 240, 180));
+  margin: -12px -80px 1px 50px;
     }
 
     .brand .txt{
-      display:flex;
-      flex-direction:column;
-      line-height:1.05;
+      position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+  margin-left: 55px;
     }
     .brand .txt strong{
-      font-size:14px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      margin:0;
+      font-size: 15px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 4px 0px 3px -6px;
     }
+    
     .brand .txt span{
-      font-size:12.5px;
-      color:var(--muted);
-      letter-spacing:.06em;
-      margin:0;
+      font-size: 14.5px;
+  color: var(--muted);
+  letter-spacing: 3px;
+  margin-left: -25px;
     }
 
     nav{
@@ -158,49 +172,45 @@
       gap: 14px;
       align-items:center;
       justify-content:center;
-      flex: 1 1 auto; /* ocupa o meio */
+      flex: 1 1 auto;   /* ocupa o meio */
       min-width:0;
       flex-wrap:nowrap;
     }
     nav a{
-      font-size:13px;
-      color:var(--muted);
-      padding:10px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
-      transition: 180ms ease;
-      white-space:nowrap;
+      font-size: 15px;
+  color: rgb(253, 253, 253);
+  padding: 10px 13px;
+  border-radius: 10px;
+  border: 2px outset #f5f5f54f;
+  transition: 180ms ease;
+  white-space: nowrap;
+  background-image: linear-gradient(90deg, #02340ced, #a4bfab42);
+  box-shadow: 2px -1px 7px rgba(59, 189, 93, 0.6);
     }
+
     nav a:hover{color:var(--text); border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.04);}
 
-    .ctaRow{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex: 0 0 auto;
-      white-space:nowrap;
-    }
-
+    .ctaRow{display:flex; gap:10px; align-items:center; flex: 0 0 auto; white-space:nowrap;}
     .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color:var(--text);
-      box-shadow: 0 10px 28px rgba(0,0,0,.22);
-      transition: 180ms ease;
-      cursor:pointer;
-      user-select:none;
-      white-space:nowrap;
+      display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px inset;
+  color: var(--text);
+  box-shadow: 0 10px 28px rgba(0,0,0,.22);
+  transition: 180ms ease;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
     }
     .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.07);}
     .btn.primary{
-      border-color: rgba(116,240,180,.45);
       background: linear-gradient(180deg, rgba(116,240,180,.18), rgba(116,240,180,.08));
+  border: 2px outset white;
+  box-shadow: 0px 0px 0px 2px color-mix(in srgb, white 40%, green 80%);
     }
     .btn.primary:hover{border-color: rgba(201,255,220,.65);}
 
@@ -238,15 +248,15 @@
     }
 
     /* Hero */
-    .hero{ padding: clamp(26px, 4.5vw, 54px) 0 26px; }
-
+    .hero{
+      padding: clamp(26px, 4.5vw, 54px) 0 26px;
+    }
     .heroGrid{
       display:grid;
       grid-template-columns: 1.25fr .85fr;
       gap: clamp(16px, 3vw, 28px);
       align-items:stretch;
     }
-
     .kicker{
       display:inline-flex;
       align-items:center;
@@ -264,14 +274,12 @@
       background: var(--accent2);
       box-shadow: 0 0 0 6px rgba(116,240,180,.10);
     }
-
     h1{
       font-size: var(--h1);
-      line-height: 1.02;
-      margin: 14px 0 12px;
-      letter-spacing: -0.03em;
+  line-height: 65px;
+  margin: 15px 0px 20px 0px;
+  letter-spacing: 1.5px;
     }
-
     .lead{
       font-size: var(--p);
       color: var(--muted);
@@ -279,12 +287,11 @@
       margin: 0 0 18px;
       max-width: 58ch;
     }
-
     .bullets{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 10px;
-      margin: 18px 0 22px;
+      display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+  margin: 45px 0px 0px;
     }
 
     .pill{
@@ -296,8 +303,11 @@
       border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
     }
-    .pill b{font-size:13px; letter-spacing:.02em;}
-    .pill span{font-size:12.5px; color: var(--muted2); line-height:1.35;}
+    .pill b{font-size:14px; letter-spacing:1.5px;}
+    .pill span{font-size: 14px;
+  color: var(--muted2);
+  line-height: 1.7;
+}
 
     .dot{
       width:10px; height:10px; border-radius:999px;
@@ -308,14 +318,16 @@
     }
 
     .panel{
-      position:relative;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
-      box-shadow: var(--shadow);
-      padding: 18px;
-      overflow:hidden;
+     position: relative;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+  box-shadow: var(--shadow);
+  padding: 20px;
+  overflow: hidden;
+  height: 70%;
     }
+
     .panel::after{
       content:"";
       position:absolute;
@@ -329,18 +341,18 @@
 
     /* Eye seal inside panel */
     .seal{
-      position:absolute;
-      top: 14px;
-      right: 14px;
-      width: 64px;
-      height: 64px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(5,23,18,.30);
-      box-shadow: 0 16px 40px rgba(0,0,0,.45);
-      display:grid;
-      place-items:center;
-      overflow:hidden;
+      position: absolute;
+  top: 0px;
+  right: 2px;
+  width: 70px;
+  height: 53px;
+  border-radius: 22px;
+  border: 2px solid rgba(54, 86, 49, 0.6);
+  background: rgba(10, 54, 31, 0.79);
+  box-shadow: 0 0px 10px rgba(18, 115, 24, 0.65);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
     }
     .seal img{
       width: 46px;
@@ -360,7 +372,6 @@
       font-size: 13.5px;
       line-height: 1.55;
     }
-
     .stats{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
@@ -385,7 +396,6 @@
       color: var(--muted2);
       line-height: 1.35;
     }
-
     .mini{
       margin-top: 14px;
       padding-top: 14px;
@@ -404,26 +414,27 @@
       letter-spacing:.02em;
     }
 
+    /* Sections */
     section{padding: 26px 0;}
-
     .sectionTitle{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 14px;
+      display: grid;
+  justify-content: flex-start;
+  gap: 3px;
+  margin-bottom: 17px;
+  margin-left: 7px;
+  margin-right: 0px;
     }
     .sectionTitle h2{
       font-size: var(--h2);
-      letter-spacing:-0.02em;
-      margin:0;
+  letter-spacing: 1px;
+  margin: 0px 0px 14px 0px;
     }
     .sectionTitle p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height:1.5;
-      max-width: 62ch;
+      margin: -4px 0px 5px 0px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 0.8;
+  max-width: 75ch;
     }
 
     .grid3{
@@ -438,14 +449,32 @@
       padding: 16px 16px;
       box-shadow: 0 12px 30px rgba(0,0,0,.18);
     }
-    .card h3{margin:0 0 8px; font-size: 16px; letter-spacing:-0.01em;}
+    .card h3{margin: 0 0 8px;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  font-weight: 500;}
     .card p{margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.55;}
     .mono{font-family: var(--mono);}
+    
+    .cardend
+{
+      border-radius: var(--radius2);
+  border: 3px outset rgba(195, 210, 191, 0.56);
+  background: rgba(19, 95, 53, 0.409);
+  padding: 16px 16px;
+  box-shadow: 15px 15px 15px rgba(3, 3, 3, 0.3);
+}
+    
+    .cardend h3{margin: 0 0 8px;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  font-weight: 500;}
+    .cardend p{margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.55;}
 
     /* Curriculum accordions */
     .accordions{
       border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.10);
+      border: 3px outset rgba(255, 255, 255, 0.32);
       background: rgba(255,255,255,.03);
       overflow:hidden;
       box-shadow: var(--shadow2);
@@ -465,14 +494,17 @@
     summary::-webkit-details-marker{display:none;}
     .sumLeft{display:flex; gap: 12px; align-items:flex-start;}
     .week{
-      width: 44px; height: 44px; border-radius: 14px;
-      display:grid; place-items:center;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.78);
-      font-family: var(--mono);
-      font-size: 12px;
-      flex:0 0 auto;
+      width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  border: 2px inset rgba(255, 255, 255, 0.73);
+  background: rgba(8, 23, 24, 0.36);
+  color: rgba(255, 255, 255, 0.79);
+  font-family: var(--mono);
+  font-size: 12px;
+  flex: 0 0 auto;
     }
     .sumTxt b{display:block; font-size: 14px; letter-spacing:.01em; margin-top: 2px;}
     .sumTxt span{display:block; color: var(--muted2); font-size: 12.5px; line-height:1.35; margin-top: 2px;}
@@ -485,7 +517,9 @@
       transition: 180ms ease;
       color: rgba(255,255,255,.74);
     }
-    details[open] .chev{transform: rotate(90deg); border-color: rgba(201,255,220,.30);}
+    details[open] .chev{transform: rotate(90deg);
+  border-color: rgba(60, 206, 112, 0.79);
+  box-shadow: 0px 0px 10px rgba(11, 160, 70, 0.8);}
     .content{
       padding: 0 16px 16px;
       color: var(--muted);
@@ -504,27 +538,31 @@
     }
     .priceCard{
       border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.03));
-      box-shadow: var(--shadow2);
-      padding: 18px;
-      position:relative;
-      overflow:hidden;
+  border: 3px outset rgba(255, 255, 255, 0.36);
+  background: linear-gradient(20deg, rgba(255, 255, 255, 0.14), rgba(4, 3, 3, 0.37));
+  box-shadow: var(--shadow2);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
     }
     .priceCard.featured{
       border-color: rgba(116,240,180,.40);
       background: linear-gradient(180deg, rgba(116,240,180,.14), rgba(255,255,255,.03));
     }
     .badge{
-      position:absolute; top:14px; left:14px;
-      font-size: 11.5px;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      color: rgba(5,23,18,.92);
-      background: rgba(201,255,220,.92);
-      padding: 8px 10px;
-      border-radius: 999px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.30);
+      position: absolute;
+  top: 12px;
+  left: 195px;
+  font-size: 11.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgb(5, 7, 6);
+  background: rgba(95, 221, 121, 0.92);
+  padding: 7px 9px;
+  border-radius: 999px;
+  box-shadow: 0 15px 10px rgba(0,0,0,0.3);
+  font-weight: 700;
+  text-shadow: 0px 4px 8px #030303;
     }
     .priceCard h3{margin: 6px 0 4px; font-size: 18px;}
     .priceCard p{margin:0 0 12px; color: var(--muted); font-size: 13.5px; line-height:1.55;}
@@ -560,6 +598,9 @@
       justify-content:space-between;
       gap: 18px;
       flex-wrap:wrap;
+      margin: 20px 0px 0px 0px;
+  letter-spacing: 0.3px;
+  text-align: initial;
     }
     .foot small{
       color: var(--muted2);
@@ -567,22 +608,34 @@
       display:block;
       max-width: 72ch;
     }
-    .footEye{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
+    .footBrand{
+   display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0px 10px;
+  border-radius: 30px;
+  border: 3px outset rgba(26, 127, 5, 0.65);
+  background: rgba(30, 66, 9, 0.2);
+  box-shadow: 0px 3px 7px 2px rgb(75, 76, 75);
+  margin-top: 18px;
+  margin-right: 5px;
     }
-    .footEye img{
-      width: 22px; height: 22px; object-fit:contain;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.45));
+
+    .footBrandEye img{
+ width: 70px;
+  height: 60px;
+  object-fit: cover;
+drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
     }
-    .footEye span{
-      font-size: 12px; color: rgba(255,255,255,.72);
-      letter-spacing:.04em; text-transform:uppercase;
+
+
+    .footBrandLogo img{
+      height: 88px;
+  width: 83px;
+  display: flex;
+  padding: 15px 0px;
+  object-fit: cover;
+  margin: -30px -12px -22px 0px;
     }
 
     /* Focus styles */
@@ -594,7 +647,7 @@
 
     /* Responsive */
     @media (max-width: 980px){
-      .heroGrid{grid-template-columns: 1fr;}
+      .heroGrid{grid-template-columns: 1fr; }
       .bullets{grid-template-columns: 1fr;}
       .grid3{grid-template-columns: 1fr;}
       .pricing{grid-template-columns: 1fr;}
@@ -602,10 +655,6 @@
 
       nav{display:none;}
       .menuBtn{display:inline-flex;}
-
-      /* no mobile pode quebrar em 2 linhas (melhor do que estourar) */
-      .topbar{flex-wrap:wrap;}
-      .ctaRow{width:100%; justify-content:flex-end;}
       .ctaRow .btn{padding:10px 12px;}
 
       /* Mobile safe mode: reduz risco de tela preta em alguns devices */
@@ -626,13 +675,14 @@
     <div class="container">
       <div class="topbar">
         <a class="brand" href="#" aria-label="VOLYNX Lab Education">
-          <div class="logoWrap" aria-hidden="true">
-            <img class="brandEye" src="assets/oficial-volynx-eye.png" alt="" />
-            <img class="brandLogo" src="assets/oficial-volynx-logo.png" alt="VOLYNX Lab" />
-          </div>
+          <span class="brandEye" aria-hidden="true">
+            <img src="assets/oficial-volynx-eye.png" alt="" />
+          </span>
+
+          <img class="brandLogo" src="assets/oficial-volynx-logo.png" alt="VOLYNX Lab" />
 
           <div class="txt">
-            <strong>VOLYNX.LAB</strong>
+            <strong>.LAB</strong>
             <span>Education</span>
           </div>
         </a>
@@ -654,6 +704,7 @@
     </div>
   </header>
 
+  <!-- Mobile menu overlay -->
   <div class="mobileMenu" id="mobileMenu" aria-hidden="true">
     <div class="mobileMenuCard">
       <a href="#curriculo">Currículo</a>
@@ -670,7 +721,7 @@
         <div class="heroGrid">
           <div>
             <div class="kicker"><i aria-hidden="true"></i> Curso de Programação, sem ruído. Só progresso.</div>
-            <h1>Do zero ao primeiro projeto online com método, prática e direção.</h1>
+            <h1>Do zero ao primeiro projeto online com método,  prática e direção.</h1>
             <p class="lead">
               Você vai aprender programação com uma trilha que não romantiza o caos: fundamentos sólidos, projetos reais,
               revisão constante e um playbook que transforma “eu entendi” em “eu entreguei”.
@@ -754,7 +805,7 @@
         <div class="sectionTitle">
           <div>
             <h2>Currículo com progressão real</h2>
-            <p>Você evolui por blocos. Cada bloco fecha com entrega. Sem ficar “assistindo aula” por esporte.</p>
+            <p>Você evolui por blocos. Cada bloco fecha com entrega. Sem ficar assistindo aula "por esporte".</p>
           </div>
         </div>
 
@@ -772,9 +823,9 @@
             </summary>
             <div class="content">
               <ul>
-                <li>Como estudar programação de forma previsível (sem auto-sabotagem).</li>
+                <li>Como estudar programação de forma previsível.</li>
                 <li>Fundamentos de HTML/CSS e semântica para projetos que “parecem caros”.</li>
-                <li>Git básico para organizar evolução (sem drama).</li>
+                <li>Git básico para organizar evolução.</li>
               </ul>
             </div>
           </details>
@@ -793,7 +844,7 @@
             <div class="content">
               <ul>
                 <li>Variáveis, funções, objetos, arrays, DOM e eventos.</li>
-                <li>Padrões de organização de código que evitam “espaguete”.</li>
+                <li>Padrões de organização de código que deixam tudo fluido.</li>
                 <li>Debug como habilidade, não como sorte.</li>
               </ul>
             </div>
@@ -864,13 +915,13 @@
       <section id="metodo" aria-label="Método">
         <div class="sectionTitle">
           <h2>Método VOLYNX Lab Education</h2>
-          <p>Treinar execução. Aumentar clareza. Reduzir fricção. Parece simples porque é o caminho curto.</p>
+          <p>Treinar execução. Aumentar clareza. Reduzir fricção. Parece simples porque é o caminho certo!</p>
         </div>
 
         <div class="grid3">
           <div class="card">
             <h3>1) Direção</h3>
-            <p>Você sabe o que fazer hoje e por quê. Nada de “vou ver um vídeo e tentar”.</p>
+            <p>Você sabe o que fazer e por quê. Nada de “vou ver um vídeo e tentar”.</p>
           </div>
           <div class="card">
             <h3>2) Entrega</h3>
@@ -896,7 +947,7 @@
           </div>
           <div class="card">
             <h3>App web</h3>
-            <p>Dados, estados e UX: interfaces que respondem rápido e parecem “produto”.</p>
+            <p>Dados, estados e UX: interfaces que respondem rápido e podem se tornar produto.</p>
           </div>
           <div class="card">
             <h3>Projeto final</h3>
@@ -908,7 +959,7 @@
       <section id="planos" aria-label="Planos e inscrição">
         <div class="sectionTitle">
           <h2>Planos</h2>
-          <p>Escolha o nível de suporte. Você pode começar enxuto e escalar quando estiver pronto.</p>
+          <p>Escolha o nível de suporte. Você pode começar no mais baixo e escalar quando estiver pronto.</p>
         </div>
 
         <div class="pricing">
@@ -920,7 +971,6 @@
             </div>
             <ul class="list">
               <li>Acesso ao curso completo</li>
-              <li>Templates e checklists</li>
               <li>Comunidade (assíncrona)</li>
               <li>Atualizações do conteúdo</li>
             </ul>
@@ -933,14 +983,13 @@
           <div class="priceCard featured">
             <div class="badge">Mais escolhido</div>
             <h3>Pro Track</h3>
-            <p>Mais acompanhamento, menos tentativa e erro.</p>
+            <p>Mais foco, menos tentativa e erro.</p>
             <div class="price">
               <strong>R$ 497</strong><span>à vista ou parcelado</span>
             </div>
             <ul class="list">
               <li>Tudo do Social Track</li>
-              <li>Checkpoints semanais (ao vivo ou gravado)</li>
-              <li>Revisão de projeto (direcionamento)</li>
+              <li>Templates personalizados e checklists</li>
               <li>Roteiro de portfólio</li>
             </ul>
             <div class="priceActions">
@@ -959,8 +1008,7 @@
               <li>Tudo do Pro Track</li>
               <li>Pacote extra de componentes</li>
               <li>Modelos de propostas e briefing</li>
-              <li>Roadmap de especialização</li>
-            </ul>
+            <li>Templates personalizados ao final do curso e checklists</li></ul>
             <div class="priceActions">
               <a class="btn primary" href="#checkout" data-plan="Bundle">Escolher Bundle</a>
               <a class="btn" href="#projetos">Ver projetos</a>
@@ -970,11 +1018,7 @@
 
         <div id="checkout" style="margin-top:14px;">
           <div class="card" style="border-radius:var(--radius); padding:18px;">
-            <h3 style="margin:0 0 8px;">Checkout (flow enxuto, sem carnaval)</h3>
-            <p style="margin:0; color:var(--muted); line-height:1.6;">
-              Este bloco é propositalmente “clean” e pronto para integrar com seu provedor. Ele já
-              recebe o plano escolhido e te dá o gancho para conectar pagamento + entrega.
-            </p>
+            <h3 style="margin:0 0 8px;">Checkout</h3>
 
             <div class="grid3" style="margin-top:14px;">
               <div class="card" style="background: rgba(0,0,0,.14);">
@@ -983,7 +1027,7 @@
               </div>
               <div class="card" style="background: rgba(0,0,0,.14);">
                 <h3 class="mono" style="margin:0 0 8px;">02 • Pagamento</h3>
-                <p style="margin:0; color:var(--muted);">Redirecionar para o checkout real do provedor.</p>
+                <p style="margin:0; color:var(--muted);">Redirecionar para o checkout.</p>
               </div>
               <div class="card" style="background: rgba(0,0,0,.14);">
                 <h3 class="mono" style="margin:0 0 8px;">03 • Entrega</h3>
@@ -992,7 +1036,7 @@
             </div>
 
             <div class="ctaRow" style="margin-top:14px;">
-              <a class="btn primary" href="#" aria-label="Ir para checkout real">Ir para o checkout real</a>
+              <a class="btn primary" href="#" aria-label="Ir para checkout real">Ir para o checkout</a>
               <a class="btn" href="#faq" aria-label="Ver perguntas frequentes">Ver FAQ</a>
             </div>
           </div>
@@ -1002,23 +1046,23 @@
       <section id="faq" aria-label="Perguntas frequentes">
         <div class="sectionTitle">
           <h2>FAQ</h2>
-          <p>O objetivo aqui é tirar objeção rápido e devolver o foco para a decisão.</p>
+          <p>Você também pode tirar suas duvidas entrando em contato com a VOLYNX através do "Suporte"</p>
         </div>
 
         <div class="faqGrid">
-          <div class="card">
+          <div class="cardend">
             <h3>Preciso saber algo antes?</h3>
             <p>Não. Se você sabe usar computador e consegue manter constância, dá para começar.</p>
           </div>
-          <div class="card">
+          <div class="cardend">
             <h3>Qual a carga semanal?</h3>
             <p>Recomendação: 4 a 6 horas/semana. Consistência ganha de intensidade.</p>
           </div>
-          <div class="card">
+          <div class="cardend">
             <h3>Vou sair empregado?</h3>
             <p>Nenhum curso deveria vender fantasia. Você sai com base, projetos e apresentação.</p>
           </div>
-          <div class="card">
+          <div class="cardend">
             <h3>Tem certificado?</h3>
             <p>Sim, ao concluir o projeto final e checkpoints. Aqui, é consequência da entrega.</p>
           </div>
@@ -1032,16 +1076,21 @@
       <div class="foot">
         <div>
           <small>
-            <b>VOLYNX Lab Education</b><br />
-            Identidade discreta, foco em performance, e um currículo que respeita o seu tempo.<br />
-            Suporte: <span class="mono">contato@volynx.world</span>
+            <b>VOLYNX.Lab Education</b><br />
+            Foco em performance e impacto social a nivel mundial.<br />
+            Suporte: <span class="mono">hello@volynx.world</span>
           </small>
-          <small style="margin-top:10px;">© <span id="year"></span> VOLYNX Lab. Todos os direitos reservados.</small>
+          <small style="margin-top:10px;">© <span id="year"></span> VOLYNX  -  Todos os direitos reservados.</small>
         </div>
 
-        <div class="footEye" aria-label="Marca VOLYNX">
+      <div class="footBrand">
+        <div class="footBrandEye" aria-label="Marca VOLYNX">
           <img src="assets/oficial-volynx-eye.png" alt="Olho oficial VOLYNX" />
-          <span>VOLYNX Lab</span>
+        <div class="footBrandLogo" aria-label="VOLYNX Logo">
+       <img src="assets/oficial-volynx-logo.png" alt="Logo oficial VOLYNX" />
+        </div>
+        </div>
+      </div>
         </div>
       </div>
     </div>
