@@ -34,7 +34,6 @@
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 
-      /* Faster reveal */
       --stagger: .14s;
       --revealDur: .55s;
     }
@@ -44,6 +43,12 @@
     button{font:inherit}
     img{max-width:100%; height:auto; display:block;}
     .container{max-width:var(--max); margin:0 auto; padding: 0 var(--pad);}
+
+    html, body{
+      width: 100%;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
 
     body{
       margin:0;
@@ -70,22 +75,36 @@
       background-size:260px 260px;
     }
 
-    /* ===== Reveal on scroll (faster) ===== */
+    /* ===== Reveal on scroll (mobile-safe) ===== */
     @keyframes revealFade {
-      0% { opacity: 0; transform: translateY(14px); filter: blur(2px); }
-      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+      0% { opacity: 0; transform: translateY(14px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .reveal{
       opacity: 0;
       transform: translateY(14px);
-      filter: blur(2px);
-      will-change: opacity, transform, filter;
+      will-change: opacity, transform;
     }
 
     .reveal.is-visible{
       animation: revealFade var(--revealDur, .55s) cubic-bezier(.2,.8,.2,1) both;
       animation-delay: min(calc(var(--d, 0) * var(--stagger, .14s)), .25s);
+    }
+
+    /* Mantém o blur no desktop (premium), remove no mobile (performance/scroll) */
+    @media (min-width: 981px){
+      @keyframes revealFadeDesktop {
+        0% { opacity: 0; transform: translateY(14px); filter: blur(2px); }
+        100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+      }
+      .reveal{
+        filter: blur(2px);
+        will-change: opacity, transform, filter;
+      }
+      .reveal.is-visible{
+        animation-name: revealFadeDesktop;
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -232,19 +251,16 @@
     }
     .btn.primary:hover{border-color: rgba(201,255,220,.65);}
 
-    /* iOS: evita estilo nativo branco em <button>I */
+    /* iOS: evita estilo nativo branco em <button> */
     button.btn{
       -webkit-appearance: none;
-     appearance: none;
-     background: transparent;          /* mantém coerência com os links */
-}
-
-/* (Opcional) se quiser o Menu com o mesmo “fill” discreto */
+      appearance: none;
+      background: transparent;
+    }
     button.btn.menuBtn{
       background: rgba(255,255,255,.03);
       border-color: rgba(255,255,255,.14);
-}
-
+    }
 
     /* Mobile menu */
     .menuBtn{display:none;}
@@ -260,23 +276,29 @@
       padding: 84px var(--pad) 20px;
     }
     .mobileMenuCard{
-      max-width: var(--max);
       margin: 0 auto;
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(5,23,18,.88);
+      border: 4px inset rgba(17, 73, 5, 0.81);
+      background: rgba(0, 23, 17, 0.77);
       box-shadow: var(--shadow);
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      max-width: 30%;
     }
+
     .mobileMenuCard a{
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: rgba(255,255,255,.86);
+      margin: 0 auto;
+      border-radius: 18px;
+      border: 4px inset rgba(17, 73, 5, 0.81);
+      background: rgba(0, 23, 17, 0.77);
+      box-shadow: var(--shadow);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      max-width: 30%;
     }
 
     /* Hero */
@@ -449,21 +471,28 @@
       display: grid;
       justify-content: flex-start;
       gap: 3px;
-      margin-bottom: 17px;
       margin-left: 7px;
       margin-right: 0px;
+      margin: 6px 0 0 0;
+      line-height: 1.35;
+      font-size: 15px;
+      max-width: 75ch;
     }
+
     .sectionTitle h2{
       font-size: var(--h2);
       letter-spacing: 1px;
-      margin: 0px 0px 14px 0px;
-    }
+      margin: 0px 0px;
+      line-height: 8vh;
+    }   
+
+    /* FIX: texto espremido */
     .sectionTitle p{
-      margin: -4px 0px 5px 0px;
+      margin: 0;
       color: var(--muted);
       font-size: 15px;
-      line-height: 0.8;
       max-width: 75ch;
+      line-height: 6vh;
     }
 
     .grid3{
@@ -510,14 +539,8 @@
       overflow:hidden;
       box-shadow: var(--shadow2);
     }
-    details .content{
-    overflow: hidden; /* essencial para animar altura */
-}
-
-    details[open] summary{
-    /* opcional: dá um “feedback” mais premium ao abrir */
-    background: rgba(255,255,255,.02);
-}
+    details .content{ overflow: hidden; }
+    details[open] summary{ background: rgba(255,255,255,.02); }
     details{border-top: 1px solid rgba(255,255,255,.10); padding:0;}
     details:first-child{border-top:none;}
     summary{
@@ -627,12 +650,12 @@
     }
     .list li{margin: 6px 0;}
     .priceActions{
-      margin-top: 16px; 
-      display:flex; 
-      gap: 10px; 
+      display:flex;
+      gap: 10px;
       flex-wrap:wrap;
       margin-top: auto;
-      padding-top: 14px;}
+      padding-top: 14px;
+    }
 
     /* FAQ */
     .faqGrid{display:grid; grid-template-columns: 1fr 1fr; gap: 14px;}
@@ -677,12 +700,11 @@
       height: 60px;
       object-fit: cover;
       filter: drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
-}
-
+    }
     .footBrandLogo img{
       height: 88px;
       width: 109px;
-      display: block; /* não flex */
+      display: block;
       object-fit: cover;
     }
 
@@ -693,38 +715,74 @@
       border-radius: 14px;
     }
 
-    /* Responsive */
-    @media (max-width: 980px){
-      .heroGrid{grid-template-columns: 1fr; }
-      .bullets{grid-template-columns: 1fr;}
-      .grid3{grid-template-columns: 1fr;}
-      .pricing{grid-template-columns: 1fr;}
-      .faqGrid{grid-template-columns: 1fr;}
+    /* =========================
+       Responsive (FIXED STRUCTURE)
+       ========================= */
+    @media (max-width: 980px), (max-device-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .bullets{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      .pricing{ grid-template-columns: 1fr; }
+      .faqGrid{ grid-template-columns: 1fr; }
       .panel{ height: auto; }
       .foot{ flex-direction: column; }
       .footBrand{ width: fit-content; }
 
-      nav{display:none;}
-      .menuBtn{display:inline-flex;}
-      .ctaRow .btn{padding:10px 12px;}
+      .topbar{ flex-wrap: wrap; gap: 10px; }
+      .brand{ min-width: 0; }
+      .ctaRow{ width: 100%; justify-content: space-between; }
+      .btn{ padding: 9px 10px; font-size: 12.5px; }
+
+      nav{ display:none; }
+      .menuBtn{ display:inline-flex; }
+      .ctaRow .btn{ padding:10px 12px; }
 
       /* Mobile safe mode */
-      body::before{display:none;}
+      body::before{ display:none; }
       header{
         backdrop-filter:none !important;
         -webkit-backdrop-filter:none !important;
         background: rgba(5,23,18,.88) !important;
       }
-    }
-    @media (max-width: 560px){
-    .topbar{ gap: 10px; }
-    .brandLogo{ margin: 0; width: 88px; height: 44px; }
-    .brand .txt{ margin-left: 6px; }
-    .brandEye{ display:none; } /* opcional: evita empurrar tudo */
-    .ctaRow{ width:100%; justify-content:space-between; }
-    .priceActions .btn{ width:100%; }
-}
 
+      /* Base tipográfica mais confortável no mobile */
+      .lead, .sub, .sectionTitle p{
+        margin-top: 10px;
+        line-height: 1.55;
+        letter-spacing: 0;
+      }
+      h1, h2, h3{
+        margin-bottom: 12px;
+      }
+      .hero p,
+      .hero .lead,
+      .hero .sub{
+        margin-top: 10px;
+        max-width: 34ch;
+      }
+
+      /* overlay menu não ficar minúsculo */
+      .mobileMenuCard{
+        max-width: min(420px, 100%);
+      }
+      .mobileMenuCard a{
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 560px), (max-device-width: 560px){
+      .topbar{ gap: 10px; }
+      .brandLogo{ margin: 0; width: 88px; height: 44px; }
+      .brand .txt{ margin-left: 6px; }
+      .brandEye{ display:none; }
+      .ctaRow{ width:100%; justify-content:space-between; }
+      .priceActions .btn{ width:100%; }
+    }
+
+    @media (max-width: 420px), (max-device-width: 420px){
+      .ctaRow{ gap: 8px; }
+      .btn{ padding: 8px 9px; font-size: 12px; }
+    }
   </style>
 </head>
 
@@ -781,7 +839,7 @@
         <div class="heroGrid">
           <div>
             <div class="kicker"><i aria-hidden="true"></i> Curso de Programação, sem ruído. Só progresso.</div>
-            <h1>Do zero ao primeiro projeto online com método,  prática e direção.</h1>
+            <h1>Do zero ao primeiro projeto online com método, prática e direção.</h1>
             <p class="lead">
               Você vai aprender programação com uma trilha que não romantiza o caos: fundamentos sólidos, projetos reais,
               revisão constante e um playbook que transforma “eu entendi” em “eu entreguei”.
@@ -1144,158 +1202,178 @@
           <small style="margin-top:10px;">© <span id="year"></span> VOLYNX  -  Todos os direitos reservados.</small>
         </div>
 
-     <div class="footBrand" aria-label="Marca VOLYNX">
-    <div class="footBrandEye">
-        <img src="assets/oficial-volynx-eye.png" alt="Olho oficial VOLYNX" />
-    </div>
-        <div class="footBrandLogo">
-        <img src="assets/oficial-volynx-logo.png" alt="Logo oficial VOLYNX" />
+        <div class="footBrand" aria-label="Marca VOLYNX">
+          <div class="footBrandEye">
+            <img src="assets/oficial-volynx-eye.png" alt="Olho oficial VOLYNX" />
+          </div>
+          <div class="footBrandLogo">
+            <img src="assets/oficial-volynx-logo.png" alt="Logo oficial VOLYNX" />
+          </div>
         </div>
       </div>
     </div>
-    </div>
-     </div>
-    </div>
-    </footer>
+  </footer>
 
   <script>
-    // Year
-    const yearEl = document.getElementById('year');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  /* =========================================================
+     FIX DE TRAVA DE SCROLL NO LOAD (SEM MEXER NO VISUAL)
+     - remove "double scroll" no iOS/Safari
+     - evita scroll lock preso (overflow) no boot e no pageshow
+     - NÃO mexe no layout/efeitos: só na mecânica do menu/scroll
+     ========================================================= */
 
-    // Accordion: suave + apenas 1 aberto (premium)
-const accordionEls = Array.from(document.querySelectorAll('.accordions details'));
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
 
-function collapseDetails(details) {
-  const summary = details.querySelector('summary');
-  const content = details.querySelector('.content');
-  if (!summary || !content) return;
+  // IMPORTANTE: para evitar barra de rolagem dupla, não mexa no html (documentElement).
+  // Trave/libere somente o BODY.
+  function unlockScroll(){
+    document.body.style.overflow = '';
+  }
 
-  const startHeight = details.offsetHeight;
-  const endHeight = summary.offsetHeight;
+  function lockScroll(){
+    document.body.style.overflow = 'hidden';
+  }
 
-  details.style.overflow = 'hidden';
+  function closeMenu(){
+    if (mobileMenu) {
+      mobileMenu.style.display = 'none';
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }
+    if (menuBtn) {
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+    unlockScroll();
+  }
 
-  const anim = details.animate(
-    [{ height: startHeight + 'px' }, { height: endHeight + 'px' }],
-    { duration: 260, easing: 'cubic-bezier(.2,.8,.2,1)' }
-  );
+  function openMenu(){
+    if (!mobileMenu || !menuBtn) return;
 
-  anim.onfinish = () => {
-    details.open = false;
-    details.style.height = '';
-    details.style.overflow = '';
-  };
-}
+    mobileMenu.style.display = 'block';
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    menuBtn.setAttribute('aria-expanded', 'true');
 
-function expandDetails(details) {
-  const summary = details.querySelector('summary');
-  const content = details.querySelector('.content');
-  if (!summary || !content) return;
+    lockScroll();
+  }
 
-  // fecha outros antes (mantém 1 aberto)
-  accordionEls.forEach((o) => {
-    if (o !== details && o.open) collapseDetails(o);
-  });
+  // Boot: nunca começar travado (e nunca manter lock por BFCache)
+  closeMenu();
+  document.addEventListener('DOMContentLoaded', closeMenu, { once: true });
+  window.addEventListener('pageshow', closeMenu);
 
-  const startHeight = details.offsetHeight;
+  // Year
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // abre para medir altura final corretamente
-  details.open = true;
+  // Accordion: suave + apenas 1 aberto (premium)
+  const accordionEls = Array.from(document.querySelectorAll('.accordions details'));
 
-  // garante que já calculou layout
-  requestAnimationFrame(() => {
-    const endHeight = summary.offsetHeight + content.scrollHeight;
+  function collapseDetails(details) {
+    const summary = details.querySelector('summary');
+    const content = details.querySelector('.content');
+    if (!summary || !content) return;
+
+    const startHeight = details.offsetHeight;
+    const endHeight = summary.offsetHeight;
 
     details.style.overflow = 'hidden';
 
     const anim = details.animate(
       [{ height: startHeight + 'px' }, { height: endHeight + 'px' }],
-      { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' }
+      { duration: 260, easing: 'cubic-bezier(.2,.8,.2,1)' }
     );
 
     anim.onfinish = () => {
+      details.open = false;
       details.style.height = '';
       details.style.overflow = '';
     };
-  });
-}
+  }
 
-// Intercepta clique no summary para controlar animação
-    accordionEls.forEach((d) => {
+  function expandDetails(details) {
+    const summary = details.querySelector('summary');
+    const content = details.querySelector('.content');
+    if (!summary || !content) return;
+
+    accordionEls.forEach((o) => {
+      if (o !== details && o.open) collapseDetails(o);
+    });
+
+    const startHeight = details.offsetHeight;
+    details.open = true;
+
+    requestAnimationFrame(() => {
+      const endHeight = summary.offsetHeight + content.scrollHeight;
+
+      details.style.overflow = 'hidden';
+
+      const anim = details.animate(
+        [{ height: startHeight + 'px' }, { height: endHeight + 'px' }],
+        { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' }
+      );
+
+      anim.onfinish = () => {
+        details.style.height = '';
+        details.style.overflow = '';
+      };
+    });
+  }
+
+  accordionEls.forEach((d) => {
     const summary = d.querySelector('summary');
-     if (!summary) return;
+    if (!summary) return;
 
     summary.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (d.open) collapseDetails(d);
-    else expandDetails(d);
+      e.preventDefault();
+      if (d.open) collapseDetails(d);
+      else expandDetails(d);
+    });
   });
-});
 
-    // Plan selection hook
-    const selectedPlan = document.getElementById('selectedPlan');
-    document.querySelectorAll('[data-plan]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const plan = btn.getAttribute('data-plan');
-        if (selectedPlan) selectedPlan.textContent = plan;
+  // Plan selection hook
+  const selectedPlan = document.getElementById('selectedPlan');
+  document.querySelectorAll('[data-plan]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const plan = btn.getAttribute('data-plan');
+      if (selectedPlan) selectedPlan.textContent = plan;
+    });
+  });
+
+  // Mobile menu
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  mobileMenu?.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) closeMenu();
+  });
+
+  mobileMenu?.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', closeMenu);
+  });
+
+  // Reveal on scroll (IntersectionObserver) - faster trigger
+  const revealEls = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
       });
+    }, {
+      root: null,
+      threshold: 0.02,
+      rootMargin: '0px 0px -22% 0px'
     });
 
-    // Mobile menu
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    function closeMenu(){
-      if (!mobileMenu || !menuBtn) return;
-      mobileMenu.style.display = 'none';
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      menuBtn.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-
-    function openMenu(){
-      if (!mobileMenu || !menuBtn) return;
-      mobileMenu.style.display = 'block';
-      mobileMenu.setAttribute('aria-hidden', 'false');
-      menuBtn.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-    }
-
-    menuBtn?.addEventListener('click', () => {
-      const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
-      isOpen ? closeMenu() : openMenu();
-    });
-
-    mobileMenu?.addEventListener('click', (e) => {
-      if (e.target === mobileMenu) closeMenu();
-    });
-
-    mobileMenu?.querySelectorAll('a').forEach((a) => {
-      a.addEventListener('click', closeMenu);
-    });
-
-    // Reveal on scroll (IntersectionObserver) - faster trigger
-    const revealEls = document.querySelectorAll('.reveal');
-
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, {
-        root: null,
-        threshold: 0.02,
-        rootMargin: '0px 0px -22% 0px'
-      });
-
-      revealEls.forEach((el) => io.observe(el));
-    } else {
-      revealEls.forEach((el) => el.classList.add('is-visible'));
-    }
-  </script>
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('is-visible'));
+  }
+</script>
 </body>
 </html>
