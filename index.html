@@ -45,11 +45,6 @@
     img{max-width:100%; height:auto; display:block;}
     .container{max-width:var(--max); margin:0 auto; padding: 0 var(--pad);}
 
-    html, body{
-  width: 100%;
-  overflow-x: hidden;
-}
-
     body{
       margin:0;
       color:var(--text);
@@ -265,30 +260,23 @@
       padding: 84px var(--pad) 20px;
     }
     .mobileMenuCard{
-     margin: 0 auto;
-  margin: 0 auto;
-  border-radius: 18px;
-  border: 4px inset rgba(17, 73, 5, 0.81);
-  background: rgba(0, 23, 17, 0.77);
-  box-shadow: var(--shadow);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-  max-width: 30%;
+      max-width: var(--max);
+      margin: 0 auto;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(5,23,18,.88);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
     }
-    
     .mobileMenuCard a{
-        margin: 0 auto;
-  border-radius: 18px;
-  border: 4px inset rgba(17, 73, 5, 0.81);
-  background: rgba(0, 23, 17, 0.77);
-  box-shadow: var(--shadow);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-  max-width: 30%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.86);
     }
 
     /* Hero */
@@ -461,14 +449,10 @@
       display: grid;
       justify-content: flex-start;
       gap: 3px;
+      margin-bottom: 17px;
       margin-left: 7px;
       margin-right: 0px;
-      margin: 6px 0 0 0;
-      line-height: 1.35;
-      font-size: 15px;
-      max-width: 75ch;
-}
-    
+    }
     .sectionTitle h2{
       font-size: var(--h2);
       letter-spacing: 1px;
@@ -711,43 +695,14 @@
 
     /* Responsive */
     @media (max-width: 980px){
-    .heroGrid{
-      grid-template-columns: 1fr; }
-    .bullets{
-      grid-template-columns: 1fr;}
-    .grid3{
-      grid-template-columns: 1fr;}
-    .pricing{
-      grid-template-columns: 1fr;}
-    .faqGrid{
-      grid-template-columns: 1fr;}
-    .panel{ 
-      height: auto; }
-    .foot{ 
-      flex-direction: column; }
-    .footBrand{ 
-      width: fit-content; }
-    .topbar{
-        flex-wrap: wrap;
-        gap: 10px;
-  }
-  .brand{
-    min-width: 0; /* deixa o logo encolher */
-  }
-  .ctaRow{
-    width: 100%;
-    justify-content: space-between;
-  }
-  .btn{
-    padding: 9px 10px;
-    font-size: 12.5px;
-  }
-}
-
-@media (max-width: 420px){
-  .ctaRow{ gap: 8px; }
-  .btn{ padding: 8px 9px; font-size: 12px; }
-}
+      .heroGrid{grid-template-columns: 1fr; }
+      .bullets{grid-template-columns: 1fr;}
+      .grid3{grid-template-columns: 1fr;}
+      .pricing{grid-template-columns: 1fr;}
+      .faqGrid{grid-template-columns: 1fr;}
+      .panel{ height: auto; }
+      .foot{ flex-direction: column; }
+      .footBrand{ width: fit-content; }
 
       nav{display:none;}
       .menuBtn{display:inline-flex;}
@@ -760,40 +715,14 @@
         -webkit-backdrop-filter:none !important;
         background: rgba(5,23,18,.88) !important;
       }
-    @media (max-width: 560px){
-        .topbar{ gap: 10px; }
-        .brandLogo{ margin: 0; width: 88px; height: 44px; }
-        .brand .txt{ margin-left: 6px; }
-        .brandEye{ display:none; } /* opcional: evita empurrar tudo */
-        .ctaRow{ width:100%; justify-content:space-between; }
-        .priceActions .btn{ width:100%; }
     }
-/* Base tipográfica mais confortável no mobile */
-@media (max-width: 980px){
-  /* Parágrafos e descrições */
-   .lead, .sub, .sectionTitle p{
-    margin-top: 10px;
-    line-height: 1.55;
-    letter-spacing: 0;
-  }
-
-  /* Espaçamento entre título e texto */
-  h1, h2, h3{
-    margin-bottom: 12px;
-  }
-
-  /* Caso você tenha um subtítulo específico no hero */
-  .hero p,
-  .hero .lead,
-  .hero .sub{
-    margin-top: 10px;
-    max-width: 34ch; /* evita linha comprida demais ficar “pesada” */
-  }
-}
-
-/* iOS: evita o Safari “ajustar” texto de forma estranha */
-html{
-  -webkit-text-size-adjust: 100%;
+    @media (max-width: 560px){
+    .topbar{ gap: 10px; }
+    .brandLogo{ margin: 0; width: 88px; height: 44px; }
+    .brand .txt{ margin-left: 6px; }
+    .brandEye{ display:none; } /* opcional: evita empurrar tudo */
+    .ctaRow{ width:100%; justify-content:space-between; }
+    .priceActions .btn{ width:100%; }
 }
 
   </style>
