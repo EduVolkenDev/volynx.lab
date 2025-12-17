@@ -33,6 +33,10 @@
       --p: clamp(15px, 1.3vw, 17px);
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+
+      /* Faster reveal */
+      --stagger: .14s;
+      --revealDur: .55s;
     }
 
     *{box-sizing:border-box;}
@@ -52,14 +56,7 @@
         linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 38%, var(--bg2) 100%);
       min-height:100vh;
       overflow-x:hidden;
-      animation: fadeIn 1s ease-in forwards;
-      animation-delay: 1.5s;
     }
-
-    @keyframes fadeIn {
-  0% { opacity: 0; } /* Começa invisível */
-  100% { opacity: 1; } /* Termina totalmente visível */
-}
 
     /* subtle noise */
     body::before{
@@ -71,6 +68,29 @@
       mix-blend-mode:overlay;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
       background-size:260px 260px;
+    }
+
+    /* ===== Reveal on scroll (faster) ===== */
+    @keyframes revealFade {
+      0% { opacity: 0; transform: translateY(14px); filter: blur(2px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    .reveal{
+      opacity: 0;
+      transform: translateY(14px);
+      filter: blur(2px);
+      will-change: opacity, transform, filter;
+    }
+
+    .reveal.is-visible{
+      animation: revealFade var(--revealDur, .55s) cubic-bezier(.2,.8,.2,1) both;
+      animation-delay: min(calc(var(--d, 0) * var(--stagger, .14s)), .25s);
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .reveal{ opacity:1 !important; transform:none !important; filter:none !important; }
+      .reveal.is-visible{ animation:none !important; }
     }
 
     /* Accessibility */
@@ -86,15 +106,14 @@
     /* Header */
     header{
       position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(31px);
-  -webkit-backdrop-filter: blur(14px);
-  background: linear-gradient(180deg, rgba(5,23,18,.72), rgba(5,23,18,.30));
-  border-bottom: 2px solid rgba(10, 64, 24, 0.6);
-  border-top: 10px solid rgba(12, 81, 13, 0.6);
-}
-    
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(31px);
+      -webkit-backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(5,23,18,.72), rgba(5,23,18,.30));
+      border-bottom: 2px solid rgba(10, 64, 24, 0.6);
+      border-top: 10px solid rgba(12, 81, 13, 0.6);
+    }
 
     .topbar{
       display:flex;
@@ -102,7 +121,7 @@
       justify-content:space-between;
       gap:16px;
       padding: 12px 0;
-      flex-wrap: nowrap; /* trava em uma linha no desktop */
+      flex-wrap: nowrap;
     }
 
     /* Brand + eye behind */
@@ -117,54 +136,53 @@
 
     .brandEye{
       position: absolute;
-  left: -50px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 80px;
-  height: 80px;
-  opacity: 2;
-  z-index: 1;
-  pointer-events: none;
+      left: -50px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 80px;
+      height: 80px;
+      opacity: 1;
+      z-index: 1;
+      pointer-events: none;
     }
     .brandEye img{
       width: 70%;
-  height: 70%;
-  object-fit: contain;
-  filter: drop-shadow(0px 0px 10px rgb(130, 231, 179));
-  margin-left: 55px;
-  margin-top: 10px;
+      height: 70%;
+      object-fit: contain;
+      filter: drop-shadow(0px 0px 10px rgb(130, 231, 179));
+      margin-left: 55px;
+      margin-top: 10px;
     }
 
     .brandLogo{
       width: 100px;
-  height: 50px;
-  object-fit: contain;
-  position: relative;
-  z-index: 2;
-  filter: drop-shadow(0 0px 20px rgb(180, 240, 180));
-  margin: -12px -80px 1px 50px;
+      height: 50px;
+      object-fit: contain;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0px 20px rgb(180, 240, 180));
+      margin: -12px -80px 1px 50px;
     }
 
     .brand .txt{
       position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  line-height: 0.9;
-  margin-left: 55px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      line-height: 0.9;
+      margin-left: 55px;
     }
     .brand .txt strong{
       font-size: 15px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin: 4px 0px 3px -6px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin: 4px 0px 3px -6px;
     }
-    
     .brand .txt span{
       font-size: 14.5px;
-  color: var(--muted);
-  letter-spacing: 3px;
-  margin-left: -25px;
+      color: var(--muted);
+      letter-spacing: 3px;
+      margin-left: -25px;
     }
 
     nav{
@@ -172,20 +190,20 @@
       gap: 14px;
       align-items:center;
       justify-content:center;
-      flex: 1 1 auto;   /* ocupa o meio */
+      flex: 1 1 auto;
       min-width:0;
       flex-wrap:nowrap;
     }
     nav a{
       font-size: 15px;
-  color: rgb(253, 253, 253);
-  padding: 10px 13px;
-  border-radius: 10px;
-  border: 2px outset #f5f5f54f;
-  transition: 180ms ease;
-  white-space: nowrap;
-  background-image: linear-gradient(90deg, #02340ced, #a4bfab42);
-  box-shadow: 2px -1px 7px rgba(59, 189, 93, 0.6);
+      color: rgb(253, 253, 253);
+      padding: 10px 13px;
+      border-radius: 10px;
+      border: 2px outset #f5f5f54f;
+      transition: 180ms ease;
+      white-space: nowrap;
+      background-image: linear-gradient(90deg, #02340ced, #a4bfab42);
+      box-shadow: 2px -1px 7px rgba(59, 189, 93, 0.6);
     }
 
     nav a:hover{color:var(--text); border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.04);}
@@ -193,26 +211,40 @@
     .ctaRow{display:flex; gap:10px; align-items:center; flex: 0 0 auto; white-space:nowrap;}
     .btn{
       display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 2px inset;
-  color: var(--text);
-  box-shadow: 0 10px 28px rgba(0,0,0,.22);
-  transition: 180ms ease;
-  cursor: pointer;
-  user-select: none;
-  white-space: nowrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 2px inset;
+      color: var(--text);
+      box-shadow: 0 10px 28px rgba(0,0,0,.22);
+      transition: 180ms ease;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
     }
     .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.07);}
     .btn.primary{
       background: linear-gradient(180deg, rgba(116,240,180,.18), rgba(116,240,180,.08));
-  border: 2px outset white;
-  box-shadow: 0px 0px 0px 2px color-mix(in srgb, white 40%, green 80%);
+      border: 2px outset white;
+      box-shadow: 0px 0px 0px 2px color-mix(in srgb, white 40%, green 80%);
     }
     .btn.primary:hover{border-color: rgba(201,255,220,.65);}
+
+    /* iOS: evita estilo nativo branco em <button>I */
+    button.btn{
+      -webkit-appearance: none;
+     appearance: none;
+     background: transparent;          /* mantém coerência com os links */
+}
+
+/* (Opcional) se quiser o Menu com o mesmo “fill” discreto */
+    button.btn.menuBtn{
+      background: rgba(255,255,255,.03);
+      border-color: rgba(255,255,255,.14);
+}
+
 
     /* Mobile menu */
     .menuBtn{display:none;}
@@ -276,9 +308,9 @@
     }
     h1{
       font-size: var(--h1);
-  line-height: 65px;
-  margin: 15px 0px 20px 0px;
-  letter-spacing: 1.5px;
+      line-height: 1.06;
+      margin: 15px 0px 20px 0px;
+      letter-spacing: 1.5px;
     }
     .lead{
       font-size: var(--p);
@@ -289,9 +321,9 @@
     }
     .bullets{
       display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 10px;
-  margin: 45px 0px 0px;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin: 45px 0px 0px;
     }
 
     .pill{
@@ -304,10 +336,7 @@
       background: rgba(255,255,255,.04);
     }
     .pill b{font-size:14px; letter-spacing:1.5px;}
-    .pill span{font-size: 14px;
-  color: var(--muted2);
-  line-height: 1.7;
-}
+    .pill span{font-size: 14px; color: var(--muted2); line-height: 1.7;}
 
     .dot{
       width:10px; height:10px; border-radius:999px;
@@ -318,14 +347,14 @@
     }
 
     .panel{
-     position: relative;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,.12);
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
-  box-shadow: var(--shadow);
-  padding: 20px;
-  overflow: hidden;
-  height: 70%;
+      position: relative;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+      box-shadow: var(--shadow);
+      padding: 20px;
+      overflow: hidden;
+      height: auto;
     }
 
     .panel::after{
@@ -342,17 +371,17 @@
     /* Eye seal inside panel */
     .seal{
       position: absolute;
-  top: 0px;
-  right: 2px;
-  width: 70px;
-  height: 53px;
-  border-radius: 22px;
-  border: 2px solid rgba(54, 86, 49, 0.6);
-  background: rgba(10, 54, 31, 0.79);
-  box-shadow: 0 0px 10px rgba(18, 115, 24, 0.65);
-  display: grid;
-  place-items: center;
-  overflow: hidden;
+      top: 0px;
+      right: 2px;
+      width: 70px;
+      height: 53px;
+      border-radius: 22px;
+      border: 2px solid rgba(54, 86, 49, 0.6);
+      background: rgba(10, 54, 31, 0.79);
+      box-shadow: 0 0px 10px rgba(18, 115, 24, 0.65);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
     }
     .seal img{
       width: 46px;
@@ -418,23 +447,23 @@
     section{padding: 26px 0;}
     .sectionTitle{
       display: grid;
-  justify-content: flex-start;
-  gap: 3px;
-  margin-bottom: 17px;
-  margin-left: 7px;
-  margin-right: 0px;
+      justify-content: flex-start;
+      gap: 3px;
+      margin-bottom: 17px;
+      margin-left: 7px;
+      margin-right: 0px;
     }
     .sectionTitle h2{
       font-size: var(--h2);
-  letter-spacing: 1px;
-  margin: 0px 0px 14px 0px;
+      letter-spacing: 1px;
+      margin: 0px 0px 14px 0px;
     }
     .sectionTitle p{
       margin: -4px 0px 5px 0px;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 0.8;
-  max-width: 75ch;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 0.8;
+      max-width: 75ch;
     }
 
     .grid3{
@@ -449,26 +478,28 @@
       padding: 16px 16px;
       box-shadow: 0 12px 30px rgba(0,0,0,.18);
     }
-    .card h3{margin: 0 0 8px;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-  font-weight: 500;}
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
     .card p{margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.55;}
     .mono{font-family: var(--mono);}
-    
-    .cardend
-{
+
+    .cardend{
       border-radius: var(--radius2);
-  border: 3px outset rgba(195, 210, 191, 0.56);
-  background: rgba(19, 95, 53, 0.409);
-  padding: 16px 16px;
-  box-shadow: 15px 15px 15px rgba(3, 3, 3, 0.3);
-}
-    
-    .cardend h3{margin: 0 0 8px;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-  font-weight: 500;}
+      border: 3px outset rgba(195, 210, 191, 0.56);
+      background: rgba(19, 95, 53, 0.409);
+      padding: 16px 16px;
+      box-shadow: 15px 15px 15px rgba(3, 3, 3, 0.3);
+    }
+    .cardend h3{
+      margin: 0 0 8px;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
     .cardend p{margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.55;}
 
     /* Curriculum accordions */
@@ -479,6 +510,14 @@
       overflow:hidden;
       box-shadow: var(--shadow2);
     }
+    details .content{
+    overflow: hidden; /* essencial para animar altura */
+}
+
+    details[open] summary{
+    /* opcional: dá um “feedback” mais premium ao abrir */
+    background: rgba(255,255,255,.02);
+}
     details{border-top: 1px solid rgba(255,255,255,.10); padding:0;}
     details:first-child{border-top:none;}
     summary{
@@ -495,16 +534,16 @@
     .sumLeft{display:flex; gap: 12px; align-items:flex-start;}
     .week{
       width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  border: 2px inset rgba(255, 255, 255, 0.73);
-  background: rgba(8, 23, 24, 0.36);
-  color: rgba(255, 255, 255, 0.79);
-  font-family: var(--mono);
-  font-size: 12px;
-  flex: 0 0 auto;
+      height: 44px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      border: 2px inset rgba(255, 255, 255, 0.73);
+      background: rgba(8, 23, 24, 0.36);
+      color: rgba(255, 255, 255, 0.79);
+      font-family: var(--mono);
+      font-size: 12px;
+      flex: 0 0 auto;
     }
     .sumTxt b{display:block; font-size: 14px; letter-spacing:.01em; margin-top: 2px;}
     .sumTxt span{display:block; color: var(--muted2); font-size: 12.5px; line-height:1.35; margin-top: 2px;}
@@ -517,9 +556,11 @@
       transition: 180ms ease;
       color: rgba(255,255,255,.74);
     }
-    details[open] .chev{transform: rotate(90deg);
-  border-color: rgba(60, 206, 112, 0.79);
-  box-shadow: 0px 0px 10px rgba(11, 160, 70, 0.8);}
+    details[open] .chev{
+      transform: rotate(90deg);
+      border-color: rgba(60, 206, 112, 0.79);
+      box-shadow: 0px 0px 10px rgba(11, 160, 70, 0.8);
+    }
     .content{
       padding: 0 16px 16px;
       color: var(--muted);
@@ -538,31 +579,36 @@
     }
     .priceCard{
       border-radius: var(--radius);
-  border: 3px outset rgba(255, 255, 255, 0.36);
-  background: linear-gradient(20deg, rgba(255, 255, 255, 0.14), rgba(4, 3, 3, 0.37));
-  box-shadow: var(--shadow2);
-  padding: 18px;
-  position: relative;
-  overflow: hidden;
+      border: 3px outset rgba(255, 255, 255, 0.36);
+      background: linear-gradient(20deg, rgba(255, 255, 255, 0.14), rgba(4, 3, 3, 0.37));
+      box-shadow: var(--shadow2);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
+
     .priceCard.featured{
       border-color: rgba(116,240,180,.40);
       background: linear-gradient(180deg, rgba(116,240,180,.14), rgba(255,255,255,.03));
     }
     .badge{
       position: absolute;
-  top: 12px;
-  left: 195px;
-  font-size: 11.5px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgb(5, 7, 6);
-  background: rgba(95, 221, 121, 0.92);
-  padding: 7px 9px;
-  border-radius: 999px;
-  box-shadow: 0 15px 10px rgba(0,0,0,0.3);
-  font-weight: 700;
-  text-shadow: 0px 4px 8px #030303;
+      left: auto;
+      right: 14px;
+      top: 14px;
+      font-size: 11.5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgb(5, 7, 6);
+      background: rgba(95, 221, 121, 0.92);
+      padding: 7px 9px;
+      border-radius: 999px;
+      box-shadow: 0 15px 10px rgba(0,0,0,0.3);
+      font-weight: 700;
+      text-shadow: 0px 4px 8px #030303;
     }
     .priceCard h3{margin: 6px 0 4px; font-size: 18px;}
     .priceCard p{margin:0 0 12px; color: var(--muted); font-size: 13.5px; line-height:1.55;}
@@ -580,7 +626,13 @@
       line-height:1.65;
     }
     .list li{margin: 6px 0;}
-    .priceActions{margin-top: 16px; display:flex; gap: 10px; flex-wrap:wrap;}
+    .priceActions{
+      margin-top: 16px; 
+      display:flex; 
+      gap: 10px; 
+      flex-wrap:wrap;
+      margin-top: auto;
+      padding-top: 14px;}
 
     /* FAQ */
     .faqGrid{display:grid; grid-template-columns: 1fr 1fr; gap: 14px;}
@@ -599,8 +651,8 @@
       gap: 18px;
       flex-wrap:wrap;
       margin: 20px 0px 0px 0px;
-  letter-spacing: 0.3px;
-  text-align: initial;
+      letter-spacing: 0.3px;
+      text-align: initial;
     }
     .foot small{
       color: var(--muted2);
@@ -609,33 +661,29 @@
       max-width: 72ch;
     }
     .footBrand{
-   display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 0px 10px;
-  border-radius: 30px;
-  border: 3px outset rgba(26, 127, 5, 0.65);
-  background: rgba(30, 66, 9, 0.2);
-  box-shadow: 0px 3px 7px 2px rgb(75, 76, 75);
-  margin-top: 18px;
-  margin-right: 5px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 0px 10px;
+      border-radius: 30px;
+      border: 3px outset rgba(26, 127, 5, 0.65);
+      background: rgba(30, 66, 9, 0.2);
+      box-shadow: 0px 3px 7px 2px rgb(75, 76, 75);
+      margin-top: 18px;
+      margin-right: 5px;
     }
-
     .footBrandEye img{
- width: 70px;
-  height: 60px;
-  object-fit: cover;
-drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
-    }
-
+      width: 70px;
+      height: 60px;
+      object-fit: cover;
+      filter: drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
+}
 
     .footBrandLogo img{
       height: 88px;
-  width: 83px;
-  display: flex;
-  padding: 15px 0px;
-  object-fit: cover;
-  margin: -30px -12px -22px 0px;
+      width: 109px;
+      display: block; /* não flex */
+      object-fit: cover;
     }
 
     /* Focus styles */
@@ -652,12 +700,15 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
       .grid3{grid-template-columns: 1fr;}
       .pricing{grid-template-columns: 1fr;}
       .faqGrid{grid-template-columns: 1fr;}
+      .panel{ height: auto; }
+      .foot{ flex-direction: column; }
+      .footBrand{ width: fit-content; }
 
       nav{display:none;}
       .menuBtn{display:inline-flex;}
       .ctaRow .btn{padding:10px 12px;}
 
-      /* Mobile safe mode: reduz risco de tela preta em alguns devices */
+      /* Mobile safe mode */
       body::before{display:none;}
       header{
         backdrop-filter:none !important;
@@ -665,13 +716,22 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
         background: rgba(5,23,18,.88) !important;
       }
     }
+    @media (max-width: 560px){
+    .topbar{ gap: 10px; }
+    .brandLogo{ margin: 0; width: 88px; height: 44px; }
+    .brand .txt{ margin-left: 6px; }
+    .brandEye{ display:none; } /* opcional: evita empurrar tudo */
+    .ctaRow{ width:100%; justify-content:space-between; }
+    .priceActions .btn{ width:100%; }
+}
+
   </style>
 </head>
 
 <body>
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
-  <header>
+  <header class="reveal" style="--d:0;">
     <div class="container">
       <div class="topbar">
         <a class="brand" href="#" aria-label="VOLYNX Lab Education">
@@ -717,7 +777,7 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
 
   <main id="conteudo">
     <div class="container">
-      <section class="hero" aria-label="Apresentação do curso">
+      <section class="hero reveal" style="--d:1;" aria-label="Apresentação do curso">
         <div class="heroGrid">
           <div>
             <div class="kicker"><i aria-hidden="true"></i> Curso de Programação, sem ruído. Só progresso.</div>
@@ -801,7 +861,7 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
         </div>
       </section>
 
-      <section id="curriculo" aria-label="Currículo">
+      <section id="curriculo" class="reveal" style="--d:2;" aria-label="Currículo">
         <div class="sectionTitle">
           <div>
             <h2>Currículo com progressão real</h2>
@@ -912,9 +972,9 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
         </div>
       </section>
 
-      <section id="metodo" aria-label="Método">
+      <section id="metodo" class="reveal" style="--d:3;" aria-label="Método">
         <div class="sectionTitle">
-          <h2>Método VOLYNX Lab Education</h2>
+          <h2>Método VOLYNX.Lab Education</h2>
           <p>Treinar execução. Aumentar clareza. Reduzir fricção. Parece simples porque é o caminho certo!</p>
         </div>
 
@@ -934,7 +994,7 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
         </div>
       </section>
 
-      <section id="projetos" aria-label="Projetos">
+      <section id="projetos" class="reveal" style="--d:4;" aria-label="Projetos">
         <div class="sectionTitle">
           <h2>Projetos que viram portfólio</h2>
           <p>Não é sobre “aprender”. É sobre construir ativos: páginas, apps e cases que te representam.</p>
@@ -956,7 +1016,7 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
         </div>
       </section>
 
-      <section id="planos" aria-label="Planos e inscrição">
+      <section id="planos" class="reveal" style="--d:5;" aria-label="Planos e inscrição">
         <div class="sectionTitle">
           <h2>Planos</h2>
           <p>Escolha o nível de suporte. Você pode começar no mais baixo e escalar quando estiver pronto.</p>
@@ -1008,7 +1068,8 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
               <li>Tudo do Pro Track</li>
               <li>Pacote extra de componentes</li>
               <li>Modelos de propostas e briefing</li>
-            <li>Templates personalizados ao final do curso e checklists</li></ul>
+              <li>Templates personalizados ao final do curso e checklists</li>
+            </ul>
             <div class="priceActions">
               <a class="btn primary" href="#checkout" data-plan="Bundle">Escolher Bundle</a>
               <a class="btn" href="#projetos">Ver projetos</a>
@@ -1043,7 +1104,7 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
         </div>
       </section>
 
-      <section id="faq" aria-label="Perguntas frequentes">
+      <section id="faq" class="reveal" style="--d:6;" aria-label="Perguntas frequentes">
         <div class="sectionTitle">
           <h2>FAQ</h2>
           <p>Você também pode tirar suas duvidas entrando em contato com a VOLYNX através do "Suporte"</p>
@@ -1071,7 +1132,7 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
     </div>
   </main>
 
-  <footer aria-label="Rodapé">
+  <footer class="reveal" style="--d:7;" aria-label="Rodapé">
     <div class="container">
       <div class="foot">
         <div>
@@ -1083,32 +1144,94 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
           <small style="margin-top:10px;">© <span id="year"></span> VOLYNX  -  Todos os direitos reservados.</small>
         </div>
 
-      <div class="footBrand">
-        <div class="footBrandEye" aria-label="Marca VOLYNX">
-          <img src="assets/oficial-volynx-eye.png" alt="Olho oficial VOLYNX" />
-        <div class="footBrandLogo" aria-label="VOLYNX Logo">
-       <img src="assets/oficial-volynx-logo.png" alt="Logo oficial VOLYNX" />
-        </div>
-        </div>
-      </div>
+     <div class="footBrand" aria-label="Marca VOLYNX">
+    <div class="footBrandEye">
+        <img src="assets/oficial-volynx-eye.png" alt="Olho oficial VOLYNX" />
+    </div>
+        <div class="footBrandLogo">
+        <img src="assets/oficial-volynx-logo.png" alt="Logo oficial VOLYNX" />
         </div>
       </div>
     </div>
-  </footer>
+    </div>
+     </div>
+    </div>
+    </footer>
 
   <script>
     // Year
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Accordion: apenas 1 aberto
-    const accordions = document.querySelectorAll('.accordions details');
-    accordions.forEach((d) => {
-      d.addEventListener('toggle', () => {
-        if (!d.open) return;
-        accordions.forEach((o) => { if (o !== d) o.open = false; });
-      });
-    });
+    // Accordion: suave + apenas 1 aberto (premium)
+const accordionEls = Array.from(document.querySelectorAll('.accordions details'));
+
+function collapseDetails(details) {
+  const summary = details.querySelector('summary');
+  const content = details.querySelector('.content');
+  if (!summary || !content) return;
+
+  const startHeight = details.offsetHeight;
+  const endHeight = summary.offsetHeight;
+
+  details.style.overflow = 'hidden';
+
+  const anim = details.animate(
+    [{ height: startHeight + 'px' }, { height: endHeight + 'px' }],
+    { duration: 260, easing: 'cubic-bezier(.2,.8,.2,1)' }
+  );
+
+  anim.onfinish = () => {
+    details.open = false;
+    details.style.height = '';
+    details.style.overflow = '';
+  };
+}
+
+function expandDetails(details) {
+  const summary = details.querySelector('summary');
+  const content = details.querySelector('.content');
+  if (!summary || !content) return;
+
+  // fecha outros antes (mantém 1 aberto)
+  accordionEls.forEach((o) => {
+    if (o !== details && o.open) collapseDetails(o);
+  });
+
+  const startHeight = details.offsetHeight;
+
+  // abre para medir altura final corretamente
+  details.open = true;
+
+  // garante que já calculou layout
+  requestAnimationFrame(() => {
+    const endHeight = summary.offsetHeight + content.scrollHeight;
+
+    details.style.overflow = 'hidden';
+
+    const anim = details.animate(
+      [{ height: startHeight + 'px' }, { height: endHeight + 'px' }],
+      { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' }
+    );
+
+    anim.onfinish = () => {
+      details.style.height = '';
+      details.style.overflow = '';
+    };
+  });
+}
+
+// Intercepta clique no summary para controlar animação
+    accordionEls.forEach((d) => {
+    const summary = d.querySelector('summary');
+     if (!summary) return;
+
+    summary.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (d.open) collapseDetails(d);
+    else expandDetails(d);
+  });
+});
 
     // Plan selection hook
     const selectedPlan = document.getElementById('selectedPlan');
@@ -1151,6 +1274,28 @@ drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
     mobileMenu?.querySelectorAll('a').forEach((a) => {
       a.addEventListener('click', closeMenu);
     });
+
+    // Reveal on scroll (IntersectionObserver) - faster trigger
+    const revealEls = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.02,
+        rootMargin: '0px 0px -22% 0px'
+      });
+
+      revealEls.forEach((el) => io.observe(el));
+    } else {
+      revealEls.forEach((el) => el.classList.add('is-visible'));
+    }
   </script>
 </body>
 </html>
