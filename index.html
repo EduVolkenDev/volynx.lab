@@ -92,7 +92,7 @@
       --display: 'Sora', var(--sans);
 
       --stagger: .14s;
-      --revealDur: .55s;
+      --revealDur: .85s;
 
       --navOffset: 92px;
       /* offset do menu fixo (fallback) */
@@ -198,8 +198,8 @@
      ========================= */
     @keyframes revealFade {
       0% {
-        opacity: .10;
-        transform: translateY(14px);
+        opacity: 0;
+        transform: translateY(10px);
       }
 
       100% {
@@ -215,7 +215,7 @@
 
     .js .reveal {
       opacity: 0;
-      transform: translateY(14px);
+      transform: translateY(10px);
       will-change: opacity, transform;
     }
 
@@ -413,22 +413,14 @@
 
     .brandLogo {
 
-      width: 150px;
-
+      width: 160px;
       height: auto;
-
       object-fit: contain;
-
       position: relative;
-
       z-index: 2;
-
-      filter: drop-shadow(0 0 2px rgba(0, 122, 255, .5));
-
-      margin: -10px 0;
-
+      filter: drop-shadow(0 0 5px rgba(82, 197, 224, 0.75));
+      margin: -10px -6px;
     }
-
 
     .brand .txt {
       position: relative;
@@ -496,27 +488,26 @@
 
     }
 
-
     nav a {
       flex: 0 0 auto;
-      font-size: 18px;
-      color: rgba(255, 255, 255, .86);
-      padding: 15px 15px 15px 10px;
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.86);
+      padding: 10px 15px 13px 11px;
       border-radius: 12px;
       transition: 180ms ease;
       white-space: nowrap;
       font-family: var(--display);
-      box-shadow: inset 0 0px 10px rgba(255, 255, 255, 0.47);
-      background: #000;
+      box-shadow: inset 0 0px 50px rgb(0, 0, 0);
+      background: #fffdfd54;
 
     }
 
 
     nav a:hover {
 
-      background: rgba(255, 255, 255, .04);
+      background: rgba(250, 250, 250, 0.787);
 
-      box-shadow: inset 0 0 0 1px rgba(0, 122, 255, .20);
+      box-shadow: inset 0 0 1px inset rgba(253, 254, 254, 0.763);
 
     }
 
@@ -569,9 +560,8 @@
 
     .btn.primary {
 
-      background: linear-gradient(180deg, rgba(24, 131, 248, 0.95), transparent 50%, rgba(255, 107, 204, 0.95), transparent 170%);
-       border-color: rgba(0, 122, 255, .22);
-
+      background: linear-gradient(30deg, rgb(33, 73, 228), transparent 60%, rgb(166, 28, 215), transparent 140%);
+      border-color: rgba(0, 122, 255, .22);
       box-shadow: 0 0 0 1px rgba(0, 122, 255, .08), var(--shadow2);
 
     }
@@ -588,8 +578,7 @@
 
     .btn.ghost {
 
-      background: transparent;
-
+      background: linear-gradient(215deg, #00ffff94, transparent 47%, #ffffff8c, transparent 177%);
       box-shadow: none;
 
     }
@@ -762,8 +751,8 @@
       align-items: flex-start;
       padding: 12px 12px;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, .10);
-      background: rgba(255, 255, 255, .04);
+      background: rgba(5, 4, 4, 0.22);
+      box-shadow: 0 0px 10px inset white;
     }
 
     .dot {
@@ -857,8 +846,8 @@
     .stat {
       padding: 14px;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, .10);
-      background: rgba(0, 0, 0, .16);
+      background: rgba(0, 0, 0, 0.35);
+      box-shadow: 0px 0 5px inset white;
     }
 
     .stat strong {
@@ -877,31 +866,49 @@
     }
 
     .panel .mini {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255, 255, 255, .10);
-      display: flex;
-      flex-wrap: wrap;
-      gap: clamp(10px, 1.6vw, 21px);
+      margin-top: 12px;
+      padding-top: 31px;
+      border-top: 2px outset rgba(255, 255, 255, 0.2);
+      display: grid;
+      gap: clamp(10px, 1.7vw, 30px);
     }
 
     .tag {
       padding: clamp(10px, 1.2vw, 14px) clamp(14px, 3.4vw, 34px);
-      box-shadow: -15px -15px 34px inset #5516c0, 15px 15px 34px inset #12ccc4;
-      border-radius: 20px;
-      font-size: clamp(14px, 1.5vw, 20px);
-      margin: 0;
-      display: inline-grid;
-      place-items: center;
+      box-shadow: -15px -15px 34px inset #5516c06e, 15px 15px 34px inset #12ccc482;
+      border-radius: 15px;
+      font-size: clamp(14px, 1.9vw, 28px);
+      margin: -4px;
+      display: flex;
       font-family: var(--display);
       font-weight: 800;
       color: #eae9ece3;
       white-space: nowrap;
       max-width: 100%;
       overflow: hidden;
-      text-overflow: ellipsis;
-      background: #fcfcfcc2;
-      text-shadow: 0px 1px 9px black;
+      background: #fcfcfc54;
+      text-shadow: 0px 1px 9px #177cd5;
+      place-content: center;
+    }
+
+    .uptag {
+      width: 100px;
+      border-radius: 15px;
+      padding: 13px 13px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      place-self: end;
+      box-shadow: 0 0px 11px inset #000000;
+      background: #2ec2c285;
+      text-shadow: 0 0 5px #ffffff8f;
+      bottom: 6px;
+    }
+
+    .chipcur:hover {
+      border: 2px inset white;
+      background: radial-gradient(9% 100% at 50% 50%, rgba(255, 255, 255, 0.6) 20%, rgba(208, 208, 208, 0.6) 120%, rgba(195, 195, 195, 0.38) 250%, rgba(168, 168, 168, 0.87) 392%);
+      transition: transform 0.25s ease, background .22s ease, border-color .25s ease, box-shadow .28s ease;
     }
 
     /* =========================================================
@@ -1136,15 +1143,16 @@
 
     .sectionTitle h2 {
       font-size: var(--h2);
-      letter-spacing: .6px;
+      letter-spacing: 0.95px;
       margin: 0;
-      line-height: 1.2;
+      line-height: 0.5;
       font-family: var(--display);
+      text-shadow: 0 0 3px #f5e7ff, 0 0 5px #00f6f6;
     }
 
     .sectionTitle p {
-      margin: 6px 0 0;
-      color: var(--muted);
+      margin: 10px 5px 0;
+      color: rgba(255, 255, 255, 0.87);
       max-width: 78ch;
       font-size: var(--sm);
       line-height: 1.65;
@@ -1159,10 +1167,9 @@
 
     .card {
       border-radius: var(--radius2);
-      border: 1px solid rgba(255, 255, 255, .10);
-      background: rgba(255, 255, 255, .04);
+      background: rgba(255, 255, 255, 0.13);
       padding: 16px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+      box-shadow: 0 0px 7px inset rgb(181, 181, 181);
     }
 
     .card h3 {
@@ -1174,10 +1181,12 @@
     }
 
     .card p {
-      margin: 0;
+      margin: 0px 10px;
       color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.55;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 0px 0px 3px 10px;
+      text-shadow: 0 0 16px black, 0 0 1px white;
     }
 
     /* Roadmap chips */
@@ -1191,16 +1200,17 @@
 
     .chip {
       appearance: none;
-      border: 1px solid var(--stroke);
-      background: rgba(255, 255, 255, .04);
+      border: 2px outset rgba(255, 255, 255, 0.68);
+      background: rgba(255, 255, 255, 0.26);
       color: var(--text);
       padding: 8px 12px;
       border-radius: 999px;
       font-weight: 700;
-      letter-spacing: .2px;
+      letter-spacing: .5px;
       cursor: pointer;
       transition: transform .12s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
       user-select: none;
+      box-shadow: 0px 0px 15px inset #fff9f959;
     }
 
     .chip:hover {
@@ -1210,8 +1220,22 @@
     }
 
     .chip.active {
-      background: linear-gradient(180deg, rgba(0, 122, 255, .16), rgba(255, 184, 107, .07));
-      border-color: rgba(0, 122, 255, .25);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.432), rgba(216, 71, 146, 0.558));
+      border: 2px inset rgba(252, 254, 255, 0.737);
+    }
+
+    .chipcur {
+      appearance: none;
+      border: 3px inset rgb(6, 3, 3);
+      background: radial-gradient(9% 100% at 50% 50%, rgba(245, 231, 145, 0.6) 20%, rgba(210, 202, 54, 0.5) 120%, rgba(223, 221, 121, 0.9) 250%, rgba(201, 196, 111, 0.69) 392%);
+      color: rgba(255, 252, 252, 0.92);
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      cursor: pointer;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      user-select: none;
+      box-shadow: 0px 0px 10px inset #0009;
     }
 
     .roadmap {
@@ -1223,11 +1247,10 @@
 
     .blockCard {
       grid-column: span 6;
-      background: rgba(255, 255, 255, .045);
-      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.11);
       border-radius: var(--radius2);
       padding: 16px;
-      box-shadow: var(--shadow2);
+      box-shadow: 0px 0 15px inset black;
       position: relative;
       overflow: hidden;
       transition: transform .18s ease, opacity .18s ease, filter .18s ease, border-color .18s ease;
@@ -1307,21 +1330,24 @@
     }
 
     .muted2 {
-      color: var(--muted2);
+      color: white;
+      text-shadow: 0 0 5px red, 0 0 3px white;
+      font-weight: 810;
+      letter-spacing: 2px;
     }
 
     /* Accordions */
     .accordions {
       border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(255, 255, 255, .03);
+      background: rgba(255, 255, 255, 0.23);
       overflow: hidden;
-      box-shadow: var(--shadow2);
-      margin-top: 12px;
+      box-shadow: 0 0 5px inset white;
+      margin-top: 20px;
+      backdrop-filter: blur(5px);
     }
 
     details {
-      border-top: 1px solid rgba(255, 255, 255, .10);
+      border-top: 2px outset rgba(2, 2, 2, 0.17);
       padding: 0;
     }
 
@@ -1365,22 +1391,22 @@
     .sumTxt span {
       display: block;
       color: var(--muted2);
-      font-size: 12.5px;
+      font-size: 14px;
       line-height: 1.35;
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     .chev {
       width: 34px;
       height: 34px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(255, 255, 255, .03);
+      border-radius: 10px;
+      background: rgba(38, 36, 36, 0.14);
       display: grid;
       place-items: center;
       flex: 0 0 auto;
       transition: 180ms ease;
-      color: rgba(255, 255, 255, .74);
+      color: rgb(255, 255, 255);
+      box-shadow: 0px 0 4px inset white;
     }
 
     details[open] .chev {
@@ -1414,54 +1440,83 @@
       margin-top: 12px;
     }
 
-    .priceCard {
+    .priceCardUpgrade {
       border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, .12);
       background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
-      box-shadow: var(--shadow2);
+      box-shadow: 0 0 5px inset white;
       padding: 18px;
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       height: 100%;
+      backdrop-filter: blur(10px);
     }
 
-    .priceCard.highlight {
-      border-color: rgba(0, 122, 255, .28);
-      box-shadow: 0 0 0 1px rgba(0, 122, 255, .10), var(--shadow);
-      background: linear-gradient(180deg, rgba(0, 122, 255, .10), rgba(255, 184, 107, .05));
+    .priceCardComplete {
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      box-shadow: 0 0 5px inset white;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      backdrop-filter: blur(10px);
     }
 
-    .priceCard .tag {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      border-color: rgba(0, 122, 255, .22);
-      background: rgba(0, 122, 255, .08);
+    .priceCardHighlight {
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      box-shadow: 0 0 5px inset white;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      backdrop-filter: blur(10px);
     }
 
-    .priceCard h3 {
-
-      margin: 6px 0 4px;
-
-      font-size: 18px;
-
+    .priceCardHighlight h3 {
+      margin: 9px 0px 17px;
+      font-size: 20px;
       font-family: var(--display);
 
     }
 
+    .priceCardComplete h3 {
+      margin: 8px 0 10px;
+      font-size: 20px;
+      font-family: var(--display);
 
-    .priceCard p {
+    }
 
-      margin: 0 0 12px;
+    .priceCardUpgrade h3 {
 
-      color: var(--muted);
+      margin: -40px 0px 8px;
+      font-size: 20px;
+      font-family: Sora;
+    }
 
-      font-size: 13.5px;
 
-      line-height: 1.55;
 
+    .priceCardHighlight p {
+      margin: 8px 0px -6px;
+      color: rgb(255, 255, 255);
+      font-size: 15px;
+      padding: 0px 0px 9px;
+      width: 320px;
+    }
+
+    .priceCardUpgrade p {
+      font-size: 15px;
+      margin: 15px -3px 5px;
+    }
+
+    .priceCardComplete p {
+      font-size: 15px;
     }
 
 
@@ -1488,15 +1543,28 @@
 
     }
 
-
-    .price span {
-
-      color: var(--muted2);
-
-      font-size: var(--xxs);
-
+    .price3 strong {
+      font-size: 28px;
+      letter-spacing: -0.02em;
+      font-family: var(--display);
+      padding: 0px 5px 0px 0px;
+      margin: 0px 0px 5px 0px;
+      position: relative;
+      top: -4px;
     }
 
+    .price span {
+      color: rgba(252, 251, 251, 0.76);
+      font-size: 15px;
+      margin: 0px;
+    }
+
+    .price3 span {
+      color: rgba(252, 251, 251, 0.76);
+      font-size: 15px;
+      position: relative;
+      bottom: 3px;
+    }
 
     .list {
 
@@ -1512,21 +1580,41 @@
 
     }
 
+    .list3 {
+
+      margin: 0;
+
+      padding-left: 18px;
+
+      color: var(--muted);
+
+      font-size: 13.5px;
+
+      line-height: 1.65;
+    }
+
 
     .list li {
 
-      margin: 8px 0;
-
+      margin: 0px 15px 10px;
+      padding: 0px 0px 0px 5px;
+      position: relative;
+      display: list-item;
     }
 
+    .list3 li {
+      margin: 10px 15px 10px 10px;
+      padding: 0px 0px 0px 5px;
+      position: relative;
+      display: list-item;
+    }
 
     .priceCard .ctaRow {
 
       margin-top: auto;
-
-      padding-top: 14px;
-
+      padding-top: 12px;
       flex-wrap: wrap;
+      width: fit-content;
 
     }
 
@@ -1729,61 +1817,46 @@
 
 
     .foot small {
-
-      color: var(--muted2);
-
-      line-height: 1.6;
-
-      display: block;
-
-      max-width: 72ch;
-
+      color: rgba(255, 255, 255, 0.81);
+      line-height: 1.8;
+      border: 2px outset #ffffff38;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #ffffff6b;
     }
 
 
     .footBrand {
-
       display: flex;
-
       align-items: center;
-
-      gap: 12px;
-
-      padding: 10px 12px;
-
+      gap: 7px;
+      padding: 0px;
       border-radius: 999px;
-
-      border: 1px solid rgba(255, 255, 255, .12);
-
-      background: rgba(255, 255, 255, .03);
-
-      box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
-
+      border: 2px inset rgba(255, 255, 255, 0.56);
+      background: rgba(63, 63, 63, 0);
+      box-shadow: 0 0px 10px inset rgba(255, 255, 255, 0.74);
     }
 
 
     .footBrandEye img {
-
-      width: 52px;
-
-      height: 44px;
-
-      object-fit: contain;
-
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
       filter: drop-shadow(0px 0px 18px rgba(0, 122, 255, .20));
-
+      scale: 1.2;
+      margin-left: 21px;
+      margin-right: -23px;
     }
 
 
     .footBrandLogo img {
-
-      height: 60px;
-
-      width: 92px;
-
-      display: block;
-
-      object-fit: contain;
+      height: 100px;
+      width: 212px;
+      display: inline-flex;
+      object-fit: cover;
+      padding-left: 50px;
+      margin-left: -30px;
+      overflow: clip;
 
     }
 
@@ -2131,7 +2204,7 @@
           </div>
           <div class="chips" aria-label="Moeda" style="justify-content:flex-end;">
             <label class="muted2" for="currency" style="font-size:12.5px; margin-right:8px;">Moeda</label>
-            <select id="currency" class="chip" style="padding:8px 14px;">
+            <select id="currency" class="chipcur" style="padding:8px 14px;">
               <option value="BRL">BRL (R$)</option>
               <option value="EUR">EUR (€)</option>
               <option value="GBP">GBP (£)</option>
@@ -2140,7 +2213,7 @@
         </div>
 
         <div class="pricing">
-          <div class="priceCard highlight">
+          <div class="priceCardHighlight">
             <h3>Social Sprint</h3>
             <p>Entrada mais rápida: landing + interatividade + publish. Sem vídeo, só execução.</p>
             <div class="price"><strong data-price="social">R$ 197</strong><span data-note="social">Founder (por tempo
@@ -2157,8 +2230,8 @@
             </div>
           </div>
 
-          <div class="priceCard">
-            <div class="tag">Upgrade</div>
+          <div class="priceCardUpgrade">
+            <div class="uptag">Upgrade</div>
             <h3>Pro (Upgrade)</h3>
             <p>Adiciona o Bloco 3: app incremental (React) para elevar o portfólio.</p>
             <div class="price"><strong data-price="pro">R$ 397</strong><span data-note="pro">Upgrade pós-Social</span>
@@ -2175,12 +2248,12 @@
             </div>
           </div>
 
-          <div class="priceCard">
+          <div class="priceCardComplete">
             <h3>Bundle + Arsenal</h3>
             <p>Curso completo + arquivos prontos para acelerar execução (mais profundo).</p>
-            <div class="price"><strong data-price="bundle">R$ 697</strong><span data-note="bundle">Para quando você
+            <div class="price3"><strong data-price="bundle">R$ 697</strong><span data-note="bundle">Para quando você
                 quiser ir até o fim</span></div>
-            <ul class="list">
+            <ul class="list3">
               <li><b>Inclui:</b> Blocos 0–5 + Arsenal</li>
               <li><b>Entrega:</b> projeto final + pacote de reutilização</li>
               <li><b>Certificado:</b> Bundle (por entrega)</li>
