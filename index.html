@@ -1,610 +1,1422 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#071b14" />
-  <title>Curso de Programação • VOLYNX Lab Education</title>
-  <meta name="description" content="Aprenda programação com método, clareza e prática. Currículo direto ao ponto, projetos reais e uma identidade VOLYNX Lab com quiet luxury." />
-  <meta property="og:title" content="Curso de Programação • VOLYNX Lab Education" />
-  <meta property="og:description" content="Método, prática e projetos reais. Do zero ao nível profissional com direção." />
-  <meta property="og:type" content="website" />
-  <meta name="robots" content="index,follow" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="#080610" name="theme-color" />
+  <title>Dev Journey • VOLYNX.Lab Education</title>
+  <meta
+    content="Dev Journey: trilha prática, sem vídeo, com projetos reais e checklists. Do zero ao primeiro projeto online — e pronto para portfólio."
+    name="description" />
+  <meta content="Dev Journey • VOLYNX.Lab Education" property="og:title" />
+  <meta
+    content="Trilha prática, sem vídeo, com projetos reais e checklists. Do zero ao primeiro projeto online — e pronto para portfólio."
+    property="og:description" />
+  <meta content="website" property="og:type" />
+  <meta content="index,follow" name="robots" />
 
   <style>
-    :root{
-      --bg0:#051712; --bg1:#071b14; --bg2:#0b231a;
-      --card: rgba(255,255,255,.06);
-      --stroke: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.90);
-      --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.56);
-      --accent: #c9ffdc;
-      --accent2:#74f0b4;
-      --shadow: 0 18px 55px rgba(0,0,0,.55);
-      --shadow2: 0 10px 30px rgba(0,0,0,.35);
+    /* SORA (self-hosted) — ttf */
+    @font-face {
+      font-family: "Sora";
+      src: url("assets-fonts/Sora-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Sora";
+      src: url("assets-fonts/Sora-Medium.ttf") format("truetype");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Sora";
+      src: url("assets-fonts/Sora-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Sora";
+      src: url("assets-fonts/Sora-ExtraBold.ttf") format("truetype");
+      font-weight: 800;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --base: clamp(16px, 1.05vw, 18px);
+      --sm: clamp(14.5px, .98vw, 16px);
+      --xs: clamp(13.5px, .92vw, 14.5px);
+      --xxs: clamp(12.8px, .88vw, 13.5px);
+
+      --bg0: #080610;
+      --bg1: #0a0718;
+      --bg2: #0d0825;
+
+      --text: rgba(255, 255, 255, .92);
+      --muted: rgba(255, 255, 255, .70);
+      --muted2: rgba(255, 255, 255, .58);
+
+      --card: rgba(255, 255, 255, .055);
+      --card2: rgba(255, 255, 255, .04);
+
+      --stroke: rgba(255, 255, 255, .12);
+      --stroke2: rgba(255, 255, 255, .16);
+
+      --accent: #007aff;
+      --accent2: #ffb86b;
+
+      --shadow: 0 12px 28px rgba(0, 0, 0, .25);
+      --shadow2: 0 8px 20px rgba(0, 0, 0, .18);
+
       --radius: 22px;
       --radius2: 16px;
+
       --max: 1120px;
       --pad: clamp(18px, 3vw, 28px);
+
       --h1: clamp(34px, 4.2vw, 56px);
       --h2: clamp(22px, 2.4vw, 30px);
       --h3: clamp(18px, 2.1vw, 22px);
       --p: clamp(15px, 1.3vw, 17px);
+
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      --display: 'Sora', var(--sans);
 
       --stagger: .14s;
       --revealDur: .55s;
+
+      --navOffset: 92px;
+      /* offset do menu fixo (fallback) */
     }
 
-    *{box-sizing:border-box;}
-    a{color:inherit; text-decoration:none;}
-    button{font:inherit}
-    img{max-width:100%; height:auto; display:block;}
-    .container{max-width:var(--max); margin:0 auto; padding: 0 var(--pad);}
 
-    html, body{
+    html {
+      scroll-padding-top: var(--navOffset);
+      scroll-behavior: smooth;
+    }
+
+    /* Para qualquer âncora (#id) não ficar escondida sob o header sticky */
+    section[id],
+    [id] {
+      scroll-margin-top: var(--navOffset);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg0);
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
       width: 100%;
       overflow-x: hidden;
+      position: relative;
+      isolation: isolate;
       -webkit-text-size-adjust: 100%;
+      font-size: var(--base);
+      letter-spacing: .01em;
+      background: none;
     }
 
-    body{
-      margin:0;
-      color:var(--text);
-      font-family: var(--sans);
+    /* IMAGEM (camada 1) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url("./assets/tarantula_nebula.jpg") center / cover no-repeat;
+      transform: translateZ(0);
+      z-index: 0;
+      opacity: .45;
+    }
+
+    /* OVERLAYS / AURORA (camada 2) */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
       background:
-        radial-gradient(1200px 900px at 15% 10%, rgba(116,240,180,.16), transparent 55%),
-        radial-gradient(900px 700px at 85% 20%, rgba(201,255,220,.12), transparent 60%),
-        radial-gradient(1200px 900px at 50% 120%, rgba(255,255,255,.06), transparent 60%),
-        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 38%, var(--bg2) 100%);
-      min-height:100vh;
-      overflow-x:hidden;
+        radial-gradient(1200px 900px at 15% 10%, rgba(0, 122, 255, .10), transparent 58%),
+        radial-gradient(900px 700px at 85% 20%, rgba(255, 184, 107, .08), transparent 62%),
+        radial-gradient(1200px 900px at 50% 120%, rgba(255, 255, 255, .04), transparent 62%),
+        linear-gradient(180deg,
+          rgba(8, 6, 16, .72) 0%,
+          rgba(10, 7, 24, .70) 38%,
+          rgba(13, 8, 37, .78) 100%);
+      z-index: -1;
+      pointer-events: none;
     }
 
-    /* subtle noise */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.20;
-      mix-blend-mode:overlay;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-      background-size:260px 260px;
+    /* iOS/Safari: evita bug de "fixed" em background pesado */
+    @media (max-width: 980px) {
+
+      body::before,
+      body::after {
+        position: absolute;
+      }
     }
 
-    /* ===== Reveal on scroll (mobile-safe) ===== */
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    /* =========================
+     Reveal (fail-safe)
+     - SEM JS: tudo visível (evita tela preta)
+     - COM JS: anima
+     ========================= */
     @keyframes revealFade {
-      0% { opacity: 0; transform: translateY(14px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% {
+        opacity: .10;
+        transform: translateY(14px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .reveal{
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    .js .reveal {
       opacity: 0;
       transform: translateY(14px);
       will-change: opacity, transform;
     }
 
-    .reveal.is-visible{
-      animation: revealFade var(--revealDur, .55s) cubic-bezier(.2,.8,.2,1) both;
-      animation-delay: min(calc(var(--d, 0) * var(--stagger, .14s)), .25s);
+    .js .reveal.is-visible {
+      animation: revealFade var(--revealDur) cubic-bezier(.2, .8, .2, 1) both;
+      animation-delay: min(calc(var(--d, 0) * var(--stagger)), .25s);
+      background: #0000;
     }
 
-    /* Mantém o blur no desktop (premium), remove no mobile (performance/scroll) */
-    @media (min-width: 981px){
+    @media (min-width: 981px) {
       @keyframes revealFadeDesktop {
-        0% { opacity: 0; transform: translateY(14px); filter: blur(2px); }
-        100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        0% {
+          opacity: 0;
+          transform: translateY(14px);
+          filter: blur(2px);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+        }
       }
-      .reveal{
-        filter: blur(2px);
+
+      .js .reveal {
+        filter: blur(5px);
         will-change: opacity, transform, filter;
       }
-      .reveal.is-visible{
+
+      .js .reveal.is-visible {
         animation-name: revealFadeDesktop;
       }
     }
 
-    @media (prefers-reduced-motion: reduce){
-      .reveal{ opacity:1 !important; transform:none !important; filter:none !important; }
-      .reveal.is-visible{ animation:none !important; }
+    @media (prefers-reduced-motion: reduce) {
+
+      .reveal,
+      .js .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+
+      .js .reveal.is-visible {
+        animation: none !important;
+      }
     }
 
     /* Accessibility */
-    .skip{
-      position:absolute; left:-999px; top:10px;
-      background:#0f2f24; color:#fff; padding:10px 12px; border-radius:12px;
-      border:1px solid rgba(255,255,255,.18);
+    .skip {
+      position: absolute;
+      left: -999px;
+      top: 10px;
+      background: rgba(10, 10, 16, .92);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
       box-shadow: var(--shadow2);
-      z-index:9999;
+      z-index: 9999;
     }
-    .skip:focus{left: var(--pad);}
+
+    .skip:focus {
+      left: var(--pad);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid rgba(255, 184, 107, .75);
+      outline-offset: 3px;
+      border-radius: 14px;
+    }
 
     /* Header */
-    header{
+
+    header {
+
       position: sticky;
+
       top: 0;
+
       z-index: 50;
-      backdrop-filter: blur(31px);
-      -webkit-backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(5,23,18,.72), rgba(5,23,18,.30));
-      border-bottom: 2px solid rgba(10, 64, 24, 0.6);
-      border-top: 10px solid rgba(12, 81, 13, 0.6);
+
+      backdrop-filter: blur(18px);
+
+      -webkit-backdrop-filter: blur(18px);
+
+      background: linear-gradient(180deg, rgba(8, 6, 16, .70), rgba(8, 6, 16, .35));
+
+      border-bottom: 1px solid var(--stroke);
+
+      overflow: visible;
+      /* Permite que elementos não sejam cortados */
+
     }
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding: 12px 0;
-      flex-wrap: nowrap;
+
+    /* Desktop: GRID (anti-overlap garantido) */
+
+    .topbar {
+
+      display: grid;
+
+      grid-template-columns: auto 1fr auto;
+      /* Ajustado para brand, nav (flexível), cta */
+
+      grid-template-areas: "brand nav cta";
+
+      align-items: center;
+
+      gap: 20px;
+      /* Aumentei gap para evitar sobreposição */
+
+      padding: 16px 0;
+
+      width: 100%;
+
+      justify-items: center;
+      /* Centraliza itens no grid */
+
     }
 
-    /* Brand + eye behind */
-    .brand{
-      position:relative;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex: 0 0 auto;
-      min-width:auto;
-    }
 
-    .brandEye{
-      position: absolute;
-      left: -50px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 80px;
-      height: 80px;
-      opacity: 1;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .brandEye img{
-      width: 70%;
-      height: 70%;
-      object-fit: contain;
-      filter: drop-shadow(0px 0px 10px rgb(130, 231, 179));
-      margin-left: 55px;
-      margin-top: 10px;
-    }
+    /* Brand */
 
-    .brandLogo{
-      width: 100px;
-      height: 50px;
-      object-fit: contain;
+    .brand {
+
+      grid-area: brand;
+
       position: relative;
-      z-index: 2;
-      filter: drop-shadow(0 0px 20px rgb(180, 240, 180));
-      margin: -12px -80px 1px 50px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      min-width: 0;
+
+      flex: 0 0 auto;
+
+      padding: 5px 0;
+
     }
 
-    .brand .txt{
+
+    /* Eye decorativo (não empurra layout) */
+
+    .brandEye {
+
+      position: absolute;
+
+      left: -42px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      height: 54px;
+
+      z-index: 1;
+
+      opacity: .35;
+
+      pointer-events: none;
+
+      filter: drop-shadow(0px 0px 7px rgb(192, 100, 255));
+
+    }
+
+
+    /* “Scale” só na imagem (evita transform duplicado/conflitante) */
+
+    .brandEye img {
+
+      width: 120px;
+
+      height: auto;
+
+      object-fit: contain;
+
+      max-width: none;
+
+      display: block;
+
+      transform: scale(.62);
+
+      transform-origin: left center;
+
+      filter: drop-shadow(0 0 12px rgba(0, 122, 255, .10));
+
+    }
+
+
+    .brandLogo {
+
+      width: 150px;
+
+      height: auto;
+
+      object-fit: contain;
+
+      position: relative;
+
+      z-index: 2;
+
+      filter: drop-shadow(0 0 2px rgba(0, 122, 255, .5));
+
+      margin: -10px 0;
+
+    }
+
+
+    .brand .txt {
       position: relative;
       z-index: 2;
       display: flex;
       flex-direction: column;
-      line-height: 0.9;
-      margin-left: 55px;
-    }
-    .brand .txt strong{
-      font-size: 15px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin: 4px 0px 3px -6px;
-    }
-    .brand .txt span{
-      font-size: 14.5px;
-      color: var(--muted);
-      letter-spacing: 3px;
-      margin-left: -25px;
+      line-height: 1.02;
+      font-family: var(--display);
+      min-width: 0;
+      right: 40px;
+      top: 5px;
+
     }
 
-    nav{
-      display:flex;
-      gap: 14px;
-      align-items:center;
-      justify-content:center;
-      flex: 1 1 auto;
-      min-width:0;
-      flex-wrap:nowrap;
+
+    .brand .txt strong {
+
+      font-size: var(--sm);
+
+      letter-spacing: 2.9px;
+
+      text-transform: uppercase;
+
+      margin: 10px 0 4px 0;
+
+      text-shadow: 0px 0px 10px rgba(0, 122, 255, .30);
+
     }
-    nav a{
-      font-size: 15px;
-      color: rgb(253, 253, 253);
-      padding: 10px 13px;
-      border-radius: 10px;
-      border: 2px outset #f5f5f54f;
+
+
+    .brand .txt span {
+
+      color: rgba(255, 255, 255, .86);
+
+      text-shadow: 0px 0px 1px rgba(0, 122, 255, .20);
+
+      font-size: 13px;
+
+      letter-spacing: 2.2px;
+
+      display: inline-block;
+
+      transform: translateX(-12px);
+
+    }
+
+
+    /* Nav */
+
+    nav {
+
+      grid-area: nav;
+
+      display: flex;
+
+      gap: 10px;
+
+      align-items: center;
+
+      justify-content: center;
+
+      min-width: 0;
+
+      /* Removi overflow: hidden para não cortar */
+
+    }
+
+
+    nav a {
+      flex: 0 0 auto;
+      font-size: 18px;
+      color: rgba(255, 255, 255, .86);
+      padding: 15px 15px 15px 10px;
+      border-radius: 12px;
       transition: 180ms ease;
       white-space: nowrap;
-      background-image: linear-gradient(90deg, #02340ced, #a4bfab42);
-      box-shadow: 2px -1px 7px rgba(59, 189, 93, 0.6);
+      font-family: var(--display);
+      box-shadow: inset 0 0px 10px rgba(255, 255, 255, 0.47);
+      background: #000;
+
     }
 
-    nav a:hover{color:var(--text); border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.04);}
 
-    .ctaRow{display:flex; gap:10px; align-items:center; flex: 0 0 auto; white-space:nowrap;}
-    .btn{
+    nav a:hover {
+
+      background: rgba(255, 255, 255, .04);
+
+      box-shadow: inset 0 0 0 1px rgba(0, 122, 255, .20);
+
+    }
+
+
+    /* CTA */
+
+    .ctaRow {
+      grid-area: cta;
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      white-space: nowrap;
+      font-family: var(--display);
+      letter-spacing: 1.3px;
+      margin-right: -30%;
+    }
+
+
+    /* Botões (consolidado) */
+
+    .btn {
+
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 2px inset;
+      border-radius: 12px;
+      background: linear-gradient(30deg, rgba(33, 73, 228, 1), transparent 60%, rgba(166, 28, 215, 1), transparent 140%);
       color: var(--text);
-      box-shadow: 0 10px 28px rgba(0,0,0,.22);
       transition: 180ms ease;
       cursor: pointer;
       user-select: none;
       white-space: nowrap;
-    }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.07);}
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(116,240,180,.18), rgba(116,240,180,.08));
-      border: 2px outset white;
-      box-shadow: 0px 0px 0px 2px color-mix(in srgb, white 40%, green 80%);
-    }
-    .btn.primary:hover{border-color: rgba(201,255,220,.65);}
+      font-size: var(--sm);
+      padding: 11px 15px;
 
-    /* iOS: evita estilo nativo branco em <button> */
-    button.btn{
-      -webkit-appearance: none;
-      appearance: none;
+    }
+
+
+    .btn:hover {
+
+      transform: translateY(-1px);
+
+      border-color: rgba(255, 184, 107, .45);
+
+      background: rgba(255, 255, 255, .05);
+
+    }
+
+
+    .btn.primary {
+
+      background: linear-gradient(180deg, rgba(24, 131, 248, 0.95), transparent 50%, rgba(255, 107, 204, 0.95), transparent 170%) border-color: rgba(0, 122, 255, .22);
+
+      box-shadow: 0 0 0 1px rgba(0, 122, 255, .08), var(--shadow2);
+
+    }
+
+
+    .btn.primary:hover {
+
+      border-color: rgba(255, 184, 107, .35);
+
+      box-shadow: 0 0 20px rgba(0, 122, 255, .20);
+
+    }
+
+
+    .btn.ghost {
+
       background: transparent;
+
+      box-shadow: none;
+
     }
-    button.btn.menuBtn{
-      background: rgba(255,255,255,.03);
-      border-color: rgba(255,255,255,.14);
+
+
+    .btn.ghost:hover {
+
+      background: rgba(255, 255, 255, .04);
+
+      box-shadow: var(--shadow2);
+
     }
+
+
+    button.btn {
+
+      -webkit-appearance: none;
+
+      appearance: none;
+
+    }
+
 
     /* Mobile menu */
-    .menuBtn{display:none;}
 
-    .mobileMenu{
-      display:none;
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.55);
+    .menuBtn {
+
+      display: none;
+
+    }
+
+
+    .mobileMenu {
+
+      display: none;
+
+      position: fixed;
+
+      inset: 0;
+
+      background: rgba(0, 0, 0, .58);
+
       backdrop-filter: blur(10px);
+
       -webkit-backdrop-filter: blur(10px);
+
       z-index: 80;
+
       padding: 84px var(--pad) 20px;
-    }
-    .mobileMenuCard{
-      margin: 0 auto;
-      border-radius: 18px;
-      border: 4px inset rgba(17, 73, 5, 0.81);
-      background: rgba(0, 23, 17, 0.77);
-      box-shadow: var(--shadow);
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-      max-width: 30%;
+
     }
 
-    .mobileMenuCard a{
+
+    .mobileMenuCard {
+
       margin: 0 auto;
+
       border-radius: 18px;
-      border: 4px inset rgba(17, 73, 5, 0.81);
-      background: rgba(0, 23, 17, 0.77);
+
+      border: 1px solid rgba(255, 255, 255, .14);
+
+      background: rgba(10, 10, 16, .72);
+
       box-shadow: var(--shadow);
+
       padding: 10px;
+
       display: flex;
+
       flex-direction: column;
-      gap: 0px;
-      max-width: 30%;
+
+      gap: 6px;
+
+      max-width: min(420px, 100%);
+
     }
 
-    /* Hero */
-    .hero{
+
+    .mobileMenuCard a {
+
+      padding: 12px 12px;
+
+      border-radius: 14px;
+
+      border: 1px solid rgba(255, 255, 255, .10);
+
+      background: rgba(255, 255, 255, .03);
+
+    }
+
+
+    .mobileMenuCard a:hover {
+
+      background: rgba(255, 255, 255, .05);
+
+      border-color: rgba(255, 255, 255, .16);
+
+    }
+
+    /* =========================================================
+     HERO
+     ========================================================= */
+    .hero {
       padding: clamp(26px, 4.5vw, 54px) 0 26px;
     }
-    .heroGrid{
-      display:grid;
+
+    .heroGrid {
+      display: grid;
       grid-template-columns: 1.25fr .85fr;
       gap: clamp(16px, 3vw, 28px);
-      align-items:stretch;
+      align-items: stretch;
     }
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      font-size: 12.5px;
-      letter-spacing:.02em;
-      margin: 15px 0px 0px 0px;
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 20px;
+      border-radius: 30px;
+      border: 1px outset rgba(255, 255, 255, 0.37);
+      color: rgb(255, 182, 219);
+      font-size: 16px;
+      letter-spacing: 0.03em;
+      margin: 1px 0 0;
+      background: radial-gradient(140% 220% at 60% 20%, rgba(0, 122, 255, 0.54), transparent 50%);
     }
-    .kicker i{
-      width:7px; height:7px; border-radius:999px;
+
+    .kicker i {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
       background: var(--accent2);
-      box-shadow: 0 0 0 6px rgba(116,240,180,.10);
+      box-shadow: 0 0 0 6px rgba(0, 122, 255, .08);
     }
-    h1{
+
+    .hero h1 {
       font-size: var(--h1);
       line-height: 1.06;
-      margin: 15px 0px 20px 0px;
-      letter-spacing: 1.5px;
+      margin: 15px 0 20px;
+      letter-spacing: .6px;
+      font-family: var(--display);
     }
-    .lead{
+
+    .lead {
       font-size: var(--p);
       color: var(--muted);
       line-height: 1.6;
       margin: 0 0 18px;
       max-width: 58ch;
     }
-    .bullets{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 10px;
-      margin: 45px 0px 0px;
+
+    /* CTAs do hero (usa a mesma .ctaRow, mas com comportamento correto) */
+    .hero .ctaRow {
+      margin-top: 10px;
+      white-space: normal;
+      letter-spacing: 1.1px;
     }
 
-    .pill{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
+    /* Bullets */
+    .bullets {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 22px 0 0;
+    }
+
+    .bulletCard {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
       padding: 12px 12px;
       border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .pill b{font-size:14px; letter-spacing:1.5px;}
-    .pill span{font-size: 14px; color: var(--muted2); line-height: 1.7;}
-
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      background: rgba(201,255,220,.85);
-      box-shadow: 0 0 0 6px rgba(201,255,220,.12);
-      margin-top:5px;
-      flex:0 0 auto;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .04);
     }
 
-    .panel{
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 184, 107, .85);
+      box-shadow: 0 0 0 6px rgba(255, 184, 107, .08);
+      margin-top: 5px;
+      flex: 0 0 auto;
+    }
+
+    .bulletCard b {
+      font-size: var(--sm);
+      letter-spacing: .3px;
+      font-family: var(--display);
+    }
+
+    .bulletCard span {
+      font-size: var(--xs);
+      color: var(--muted2);
+      line-height: 1.6;
+    }
+
+    /* Side panel */
+    .panel {
       position: relative;
       border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255, 255, 255, .06), rgba(255, 255, 255, .035));
       box-shadow: var(--shadow);
       padding: 20px;
       overflow: hidden;
       height: auto;
     }
 
-    .panel::after{
-      content:"";
-      position:absolute;
-      inset:-140px -160px auto auto;
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: -140px -160px auto auto;
       width: 420px;
       height: 420px;
-      background: radial-gradient(circle at 35% 35%, rgba(116,240,180,.20), transparent 62%);
+      background: radial-gradient(circle at 35% 35%, rgba(114, 36, 224, 0.542), transparent 62%);
       transform: rotate(18deg);
-      pointer-events:none;
+      pointer-events: none;
     }
 
-    /* Eye seal inside panel */
-    .seal{
+    .seal {
       position: absolute;
-      top: 0px;
-      right: 2px;
-      width: 70px;
-      height: 53px;
-      border-radius: 22px;
-      border: 2px solid rgba(54, 86, 49, 0.6);
-      background: rgba(10, 54, 31, 0.79);
-      box-shadow: 0 0px 10px rgba(18, 115, 24, 0.65);
+      top: 12px;
+      right: 12px;
+      width: 62px;
+      height: 48px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(255, 255, 255, .04);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
       display: grid;
       place-items: center;
       overflow: hidden;
     }
-    .seal img{
-      width: 46px;
-      height: 46px;
-      object-fit:contain;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,.55));
+
+    .seal img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, .55));
     }
 
-    .panel h3{
+    .panel h3 {
       font-size: var(--h3);
       margin: 4px 0 8px;
-      letter-spacing: -0.01em;
+      letter-spacing: -.01em;
+      font-family: var(--display);
     }
-    .panel p{
-      margin:0 0 14px;
+
+    .panel p {
+      margin: 0 0 14px;
       color: var(--muted);
       font-size: 13.5px;
       line-height: 1.55;
     }
-    .stats{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
       margin-top: 10px;
     }
-    .stat{
-      padding: 14px 14px;
+
+    .stat {
+      padding: 14px;
       border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.16);
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(0, 0, 0, .16);
     }
-    .stat strong{
-      display:block;
-      font-size: 15px;
-      letter-spacing: -0.01em;
+
+    .stat strong {
+      display: block;
+      font-size: var(--sm);
+      letter-spacing: -.01em;
       margin-bottom: 3px;
+      font-family: var(--display);
     }
-    .stat span{
-      display:block;
-      font-size: 12.5px;
+
+    .stat span {
+      display: block;
+      font-size: var(--xxs);
       color: var(--muted2);
       line-height: 1.35;
     }
-    .mini{
+
+    .panel .mini {
       margin-top: 14px;
       padding-top: 14px;
-      border-top:1px solid rgba(255,255,255,.10);
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
+      border-top: 1px solid rgba(255, 255, 255, .10);
+      display: flex;
+      flex-wrap: wrap;
+      gap: clamp(10px, 1.6vw, 21px);
     }
-    .tag{
-      font-size: 12px;
-      color: rgba(255,255,255,.72);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-      padding: 8px 10px;
-      border-radius: 999px;
-      letter-spacing:.02em;
+
+    .tag {
+      padding: clamp(10px, 1.2vw, 14px) clamp(14px, 3.4vw, 34px);
+      box-shadow: -15px -15px 34px inset #5516c0, 15px 15px 34px inset #12ccc4;
+      border-radius: 20px;
+      font-size: clamp(14px, 1.5vw, 20px);
+      margin: 0;
+      display: inline-grid;
+      place-items: center;
+      font-family: var(--display);
+      font-weight: 800;
+      color: #eae9ece3;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: #fcfcfcc2;
+      text-shadow: 0px 1px 9px black;
+    }
+
+    /* =========================================================
+     BREAKPOINTS (header + hero)
+     ========================================================= */
+
+    /* Ajuste fino antes de “quebrar” linha */
+    @media (max-width: 1350px) {
+      nav a {
+        font-size: 15px;
+        padding: 12px 12px;
+      }
+
+      .btn {
+        padding: 10px 13px;
+      }
+
+      .brandLogo {
+        width: 140px;
+      }
+    }
+
+    /* Quando apertar: nav desce (sem atropelar CTA) */
+    @media (max-width: 1180px) and (min-width: 981px) {
+      .ctaRow {
+        margin-right: 0;
+      }
+
+      .topbar {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          "brand cta"
+          "nav   nav";
+        row-gap: 12px;
+      }
+
+      nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      nav a {
+        font-size: 14px;
+        padding: 11px 11px;
+      }
+
+      .brandLogo {
+        width: 135px;
+      }
+    }
+
+    /* Pode esconder o CTA secundário quando ficar apertado */
+    @media (max-width: 1060px) and (min-width: 981px) {
+      .ctaRow .btn:not(.primary) {
+        display: none;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 980px) {
+      .ctaRow {
+        margin-right: 0;
+      }
+
+      header {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(8, 6, 16, .88) !important;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .brandEye {
+        display: none !important;
+      }
+
+      .menuBtn {
+        display: inline-flex;
+        justify-self: end;
+        min-height: 44px;
+      }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 12px;
+        padding: 12px 0;
+        align-items: center;
+        grid-template-areas:
+          "brand menu"
+          "cta   cta";
+      }
+
+      .brand {
+        grid-area: brand;
+        width: 120px;
+        height: 110px;
+        scale: 1.8;
+        margin-bottom: 20px;
+        margin-right: 40px;
+      }
+
+      .brand .txt {
+        right: 32px;
+        top: 6.5px;
+        line-height: 1.0;
+      }
+
+      #menuBtn {
+        grid-area: menu;
+        margin-bottom: 25px;
+        box-shadow: 0 0 10px #e77575cf;
+      }
+
+      .ctaRow {
+        grid-area: cta;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        justify-content: stretch;
+        white-space: normal;
+      }
+
+      .ctaRow a {
+        width: 100%;
+        min-height: 44px;
+      }
+
+      .heroGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .bullets {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Mini mobile */
+    @media (max-width: 560px) {
+      .brandLogo {
+        width: 108px;
+        margin: -8px 12px -8px -5px;
+        scale: 1.5;
+      }
+
+      .brand .txt strong {
+        letter-spacing: 2.4px;
+        margin-top: 10px;
+      }
+
+      .brand .txt span {
+        font-size: 12px;
+        letter-spacing: 2px;
+        transform: translateX(-10px);
+      }
+
+      .btn {
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 20px 0 16px;
+      }
+
+      .kicker {
+        padding: 10px 10px;
+        font-size: 12px;
+      }
+
+      .lead {
+        max-width: 100%;
+      }
+
+      .bulletCard {
+        padding: 10px 10px;
+      }
+
+      .panel {
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      :root {
+        --pad: 12px;
+      }
+
+      .heroGrid {
+        gap: 16px;
+      }
+
+      .btn {
+        padding: 9px 10px;
+        font-size: 12px;
+      }
+
+      .foot small {
+        font-size: 12px;
+      }
     }
 
     /* Sections */
-    section{padding: 26px 0;}
-    .sectionTitle{
-      display: grid;
-      justify-content: flex-start;
-      gap: 3px;
-      margin-left: 7px;
-      margin-right: 0px;
-      margin: 6px 0 0 0;
-      line-height: 1.35;
-      font-size: 15px;
-      max-width: 75ch;
+    section {
+      padding: 26px 0;
     }
 
-    .sectionTitle h2{
-      font-size: var(--h2);
-      letter-spacing: 1px;
-      margin: 0px 0px;
-      line-height: 4vh;
-    }   
+    .sectionTitle {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 6px 0 0;
+      flex-wrap: wrap;
+    }
 
-    /* FIX: texto espremido */
-    .sectionTitle p{
+    .sectionTitle h2 {
+      font-size: var(--h2);
+      letter-spacing: .6px;
+      margin: 0;
+      line-height: 1.2;
+      font-family: var(--display);
+    }
+
+    .sectionTitle p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      max-width: 78ch;
+      font-size: var(--sm);
+      line-height: 1.65;
+    }
+
+    .grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .card {
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .04);
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: .2px;
+      font-weight: 600;
+      font-family: var(--display);
+    }
+
+    .card p {
       margin: 0;
       color: var(--muted);
-      font-size: 15px;
-      max-width: 75ch;
-      line-height: 6vh;
+      font-size: 13.5px;
+      line-height: 1.55;
     }
 
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
+    /* Roadmap chips */
+    .chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .chip {
+      appearance: none;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, .04);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      cursor: pointer;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      user-select: none;
+    }
+
+    .chip:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, .18);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .25);
+    }
+
+    .chip.active {
+      background: linear-gradient(180deg, rgba(0, 122, 255, .16), rgba(255, 184, 107, .07));
+      border-color: rgba(0, 122, 255, .25);
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
       gap: 14px;
+      margin-top: 12px;
     }
-    .card{
-      border-radius: var(--radius2);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding: 16px 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.18);
-    }
-    .card h3{
-      margin: 0 0 8px;
-      font-size: 20px;
-      letter-spacing: 0.5px;
-      font-weight: 500;
-    }
-    .card p{margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.55;}
-    .mono{font-family: var(--mono);}
 
-    .cardend{
+    .blockCard {
+      grid-column: span 6;
+      background: rgba(255, 255, 255, .045);
+      border: 1px solid var(--stroke);
       border-radius: var(--radius2);
-      border: 3px outset rgba(195, 210, 191, 0.56);
-      background: rgba(19, 95, 53, 0.409);
-      padding: 16px 16px;
-      box-shadow: 15px 15px 15px rgba(3, 3, 3, 0.3);
-    }
-    .cardend h3{
-      margin: 0 0 8px;
-      font-size: 20px;
-      letter-spacing: 0.5px;
-      font-weight: 500;
-    }
-    .cardend p{margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.55;}
-
-    /* Curriculum accordions */
-    .accordions{
-      border-radius: var(--radius);
-      border: 3px outset rgba(255, 255, 255, 0.32);
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
+      padding: 16px;
       box-shadow: var(--shadow2);
+      position: relative;
+      overflow: hidden;
+      transition: transform .18s ease, opacity .18s ease, filter .18s ease, border-color .18s ease;
     }
-    details .content{ overflow: hidden; }
-    details[open] summary{ background: rgba(255,255,255,.02); }
-    details{border-top: 1px solid rgba(255,255,255,.10); padding:0;}
-    details:first-child{border-top:none;}
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding: 16px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+
+    .blockCard::before {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(500px 260px at 18% 22%, rgba(0, 122, 255, .09), transparent 60%);
+      filter: blur(28px);
+      opacity: .9;
+      pointer-events: none;
+    }
+
+    .blockCard.arsenal::before {
+      background: radial-gradient(540px 280px at 18% 22%, rgba(255, 184, 107, .10), transparent 62%);
+    }
+
+    .blockCard:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, .16);
+    }
+
+    .blockCard.is-dim {
+      opacity: .32;
+      filter: saturate(.70);
+    }
+
+    .blockTop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .blockNum {
+      font-family: var(--mono);
+      font-weight: 800;
+      color: rgba(255, 255, 255, .86);
+      font-size: var(--xxs);
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+
+    .badge {
+      font-size: var(--xxs);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .05);
+      color: rgba(255, 255, 255, .82);
+      white-space: nowrap;
+    }
+
+    .blockCard h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-family: var(--display);
+    }
+
+    .blockCard .mini {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: rgba(255, 255, 255, .78);
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .blockCard .mini li {
+      margin: 6px 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .muted2 {
+      color: var(--muted2);
+    }
+
+    /* Accordions */
+    .accordions {
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .03);
+      overflow: hidden;
+      box-shadow: var(--shadow2);
+      margin-top: 12px;
+    }
+
+    details {
+      border-top: 1px solid rgba(255, 255, 255, .10);
+      padding: 0;
+    }
+
+    details:first-child {
+      border-top: none;
+    }
+
+    details .content {
+      overflow: hidden;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 14px;
-      user-select:none;
+      user-select: none;
     }
-    summary::-webkit-details-marker{display:none;}
-    .sumLeft{display:flex; gap: 12px; align-items:flex-start;}
-    .week{
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .sumLeft {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .sumTxt b {
+      display: block;
+      font-size: 14px;
+      letter-spacing: .01em;
+      margin-top: 2px;
+      font-family: var(--display);
+    }
+
+    .sumTxt span {
+      display: block;
+      color: var(--muted2);
+      font-size: 12.5px;
+      line-height: 1.35;
+      margin-top: 2px;
+    }
+
+    .chev {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .03);
       display: grid;
       place-items: center;
-      border: 2px inset rgba(255, 255, 255, 0.73);
-      background: rgba(8, 23, 24, 0.36);
-      color: rgba(255, 255, 255, 0.79);
-      font-family: var(--mono);
-      font-size: 12px;
       flex: 0 0 auto;
-    }
-    .sumTxt b{display:block; font-size: 14px; letter-spacing:.01em; margin-top: 2px;}
-    .sumTxt span{display:block; color: var(--muted2); font-size: 12.5px; line-height:1.35; margin-top: 2px;}
-    .chev{
-      width: 34px; height: 34px; border-radius: 12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-      display:grid; place-items:center;
-      flex:0 0 auto;
       transition: 180ms ease;
-      color: rgba(255,255,255,.74);
+      color: rgba(255, 255, 255, .74);
     }
-    details[open] .chev{
+
+    details[open] .chev {
       transform: rotate(90deg);
-      border-color: rgba(60, 206, 112, 0.79);
-      box-shadow: 0px 0px 10px rgba(11, 160, 70, 0.8);
+      border-color: rgba(0, 122, 255, .35);
+      box-shadow: 0 0 18px rgba(0, 122, 255, .18);
     }
-    .content{
+
+    .content {
       padding: 0 16px 16px;
       color: var(--muted);
       font-size: 13.5px;
       line-height: 1.6;
     }
-    .content ul{margin: 10px 0 0 18px; padding:0;}
-    .content li{margin: 6px 0;}
+
+    .content ul {
+      margin: 10px 0 0 18px;
+      padding: 0;
+    }
+
+    .content li {
+      margin: 6px 0;
+    }
 
     /* Pricing */
-    .pricing{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      align-items:stretch;
+      align-items: stretch;
+      margin-top: 12px;
     }
-    .priceCard{
+
+    .priceCard {
       border-radius: var(--radius);
-      border: 3px outset rgba(255, 255, 255, 0.36);
-      background: linear-gradient(20deg, rgba(255, 255, 255, 0.14), rgba(4, 3, 3, 0.37));
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
       box-shadow: var(--shadow2);
       padding: 18px;
       position: relative;
@@ -614,181 +1426,413 @@
       height: 100%;
     }
 
-    .priceCard.featured{
-      border-color: rgba(116,240,180,.40);
-      background: linear-gradient(180deg, rgba(116,240,180,.14), rgba(255,255,255,.03));
-    }
-    .badge{
-      position: absolute;
-      left: auto;
-      right: 14px;
-      top: 14px;
-      font-size: 11.5px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgb(5, 7, 6);
-      background: rgba(95, 221, 121, 0.92);
-      padding: 7px 9px;
-      border-radius: 999px;
-      box-shadow: 0 15px 10px rgba(0,0,0,0.3);
-      font-weight: 700;
-      text-shadow: 0px 4px 8px #030303;
-    }
-    .priceCard h3{margin: 6px 0 4px; font-size: 18px;}
-    .priceCard p{margin:0 0 12px; color: var(--muted); font-size: 13.5px; line-height:1.55;}
-    .price{
-      display:flex; align-items:baseline; gap:8px;
-      margin: 10px 0 14px;
-    }
-    .price strong{font-size: 28px; letter-spacing:-0.02em;}
-    .price span{color: var(--muted2); font-size: 12.5px;}
-    .list{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height:1.65;
-    }
-    .list li{margin: 6px 0;}
-    .priceActions{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: auto;
-      padding-top: 14px;
+    .priceCard.highlight {
+      border-color: rgba(0, 122, 255, .28);
+      box-shadow: 0 0 0 1px rgba(0, 122, 255, .10), var(--shadow);
+      background: linear-gradient(180deg, rgba(0, 122, 255, .10), rgba(255, 184, 107, .05));
     }
 
-    /* FAQ */
-    .faqGrid{display:grid; grid-template-columns: 1fr 1fr; gap: 14px;}
+    .priceCard .tag {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      border-color: rgba(0, 122, 255, .22);
+      background: rgba(0, 122, 255, .08);
+    }
+
+    .priceCard h3 {
+
+      margin: 6px 0 4px;
+
+      font-size: 18px;
+
+      font-family: var(--display);
+
+    }
+
+
+    .priceCard p {
+
+      margin: 0 0 12px;
+
+      color: var(--muted);
+
+      font-size: 13.5px;
+
+      line-height: 1.55;
+
+    }
+
+
+    .price {
+
+      display: flex;
+
+      align-items: baseline;
+
+      gap: 8px;
+
+      margin: 10px 0 14px;
+
+    }
+
+
+    .price strong {
+
+      font-size: 28px;
+
+      letter-spacing: -0.02em;
+
+      font-family: var(--display);
+
+    }
+
+
+    .price span {
+
+      color: var(--muted2);
+
+      font-size: var(--xxs);
+
+    }
+
+
+    .list {
+
+      margin: 0;
+
+      padding-left: 18px;
+
+      color: var(--muted);
+
+      font-size: 13.5px;
+
+      line-height: 1.65;
+
+    }
+
+
+    .list li {
+
+      margin: 8px 0;
+
+    }
+
+
+    .priceCard .ctaRow {
+
+      margin-top: auto;
+
+      padding-top: 14px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .priceCard .btn {
+
+      flex: 1 1 auto;
+
+    }
+
+
+    /* Checkout */
+
+    .card.big {
+
+      padding: 22px;
+
+    }
+
+
+    .split {
+
+      display: grid;
+
+      grid-template-columns: 1.3fr .7fr;
+
+      gap: 18px;
+
+      align-items: start;
+
+    }
+
+
+    .ctaCol {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 10px;
+
+      justify-content: flex-start;
+
+    }
+
+
+    .fineprint {
+
+      color: var(--muted2);
+
+      font-size: 13px;
+
+      line-height: 1.55;
+
+    }
+
+
+    /* =========================================================
+     Responsive: grids / pricing / checkout
+     (ref: patterns from index.html)
+     ========================================================= */
+
+    @media (max-width: 980px) {
+      .grid3 {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing {
+        grid-template-columns: 1fr;
+      }
+
+      .blockCard {
+        grid-column: span 12;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .panel .mini {
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .sectionTitle {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chips {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .priceCard .ctaRow {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .priceCard .btn {
+        width: 100%;
+      }
+    }
+
+
+
+
+    /* =========================================================
+     RESPONSIVIDADE (ref: index.html)
+     - Ajusta grids (cards, preços, checkout) para telas menores
+     - Remove margem negativa do CTA quando a largura apertar
+     ========================================================= */
+
+    @media (max-width: 1180px) {
+      .ctaRow {
+        margin-right: 0;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .grid3 {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing {
+        grid-template-columns: 1fr;
+      }
+
+      .roadmap {
+        grid-template-columns: repeat(12, 1fr);
+      }
+
+      .blockCard {
+        grid-column: span 12;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .sectionTitle {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chips {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .priceCard .ctaRow {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .priceCard .btn {
+        width: 100%;
+      }
+    }
 
     /* Footer */
-    footer{
+
+    footer {
+
       padding: 34px 0 48px;
-      border-top:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.08);
+
+      border-top: 1px solid rgba(255, 255, 255, .10);
+
+      background: rgba(0, 0, 0, .08);
+
       margin-top: 18px;
+
+      position: relative;
+
+      z-index: 1;
+
     }
-    .foot{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
+
+
+    .foot {
+
+      display: flex;
+
+      align-items: flex-start;
+
+      justify-content: space-between;
+
       gap: 18px;
-      flex-wrap:wrap;
-      margin: 20px 0px 0px 0px;
-      letter-spacing: 0.3px;
-      text-align: initial;
+
+      flex-wrap: wrap;
+
+      margin-top: 20px;
+
     }
-    .foot small{
+
+
+    .foot small {
+
       color: var(--muted2);
-      line-height:1.6;
-      display:block;
-      max-width: 72ch;
-    }
-    .footBrand{
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 0px 10px;
-      border-radius: 30px;
-      border: 3px outset rgba(26, 127, 5, 0.65);
-      background: rgba(30, 66, 9, 0.2);
-      box-shadow: 0px 3px 7px 2px rgb(75, 76, 75);
-      margin-top: 18px;
-      margin-right: 5px;
-    }
-    .footBrandEye img{
-      width: 70px;
-      height: 60px;
-      object-fit: cover;
-      filter: drop-shadow(0px 1px 20px rgba(25, 241, 48, 0.64));
-    }
-    .footBrandLogo img{
-      height: 88px;
-      width: 109px;
+
+      line-height: 1.6;
+
       display: block;
-      object-fit: cover;
+
+      max-width: 72ch;
+
     }
 
-    /* Focus styles */
-    a:focus-visible, button:focus-visible, summary:focus-visible{
-      outline: 2px solid rgba(201,255,220,.75);
-      outline-offset: 3px;
-      border-radius: 14px;
-    }
 
-    /* =========================
-       Responsive (FIXED STRUCTURE)
-       ========================= */
-    @media (max-width: 980px), (max-device-width: 980px){
-      .heroGrid{ grid-template-columns: 1fr; }
-      .bullets{ grid-template-columns: 1fr; }
-      .grid3{ grid-template-columns: 1fr; }
-      .pricing{ grid-template-columns: 1fr; }
-      .faqGrid{ grid-template-columns: 1fr; }
-      .panel{ height: auto; }
-      .foot{ flex-direction: column; }
-      .footBrand{ width: fit-content; }
+    .footBrand {
 
-      .topbar{ flex-wrap: wrap; gap: 10px; }
-      .brand{ min-width: 0; }
-      .ctaRow{ width: 100%; justify-content: space-between; }
-      .btn{ padding: 9px 10px; font-size: 12.5px; }
-
-      nav{ display:none; }
-      .menuBtn{ display:inline-flex; }
-      .ctaRow .btn{ padding:10px 12px; }
-
-      /* Mobile safe mode */
-      body::before{ display:none; }
-      header{
-        backdrop-filter:none !important;
-        -webkit-backdrop-filter:none !important;
-        background: rgba(5,23,18,.88) !important;
-      }
-
-      /* Base tipográfica mais confortável no mobile */
-      .sectionTitle p, h2, h3{
-        margin-top: 10px;
-        line-height: 1.55;
-        letter-spacing: 0;
-        margin-bottom: 12px;
-      }
-      .hero p,
-      .hero .lead,
-      .hero .sub{
-        margin-top: 10px;
-        max-width: 34ch;
-      }
-
-      /* overlay menu não ficar minúsculo */
-      .mobileMenuCard{
-        max-width: min(420px, 100%);
-      }
-      .mobileMenuCard a{
-        max-width: 100%;
-      }
-    }
-
-    @media (max-width: 560px), (max-device-width: 560px){
-      .topbar{ gap: 10px; }
-      .brandLogo{ margin: 0px -30px 10px 0px;
-        width: 100px;
-        height: 57px; }
-      .brand .txt{ margin-left: 6px; }
-      .brandEye{ display:none; }
-      .ctaRow{ width:100%; justify-content:space-between; }
-      .priceActions .btn{ width:100%; }
-      
-    }
-
-    @media (max-width: 420px), (max-device-width: 420px){
-      .ctaRow{ gap: 8px;
       display: flex;
-      justify-content: left;
-  } }
-      .btn{ padding: 8px 9px; font-size: 12px; }
 
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 10px 12px;
+
+      border-radius: 999px;
+
+      border: 1px solid rgba(255, 255, 255, .12);
+
+      background: rgba(255, 255, 255, .03);
+
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
+
+    }
+
+
+    .footBrandEye img {
+
+      width: 52px;
+
+      height: 44px;
+
+      object-fit: contain;
+
+      filter: drop-shadow(0px 0px 18px rgba(0, 122, 255, .20));
+
+    }
+
+
+    .footBrandLogo img {
+
+      height: 60px;
+
+      width: 92px;
+
+      display: block;
+
+      object-fit: contain;
+
+    }
+
+    /* Blur nos cards para melhor legibilidade */
+    .card,
+    .priceCard,
+    .blockCard,
+    .panel,
+    .bulletCard,
+    .stat,
+    .seal,
+    .footBrand {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* =========================================================
+   PATCH: “respiro” no NAV (desktop) sem quebrar
+   ========================================================= */
+    @media (min-width: 981px) {
+
+      /* mais espaço entre brand | nav | ctas */
+      .topbar {
+        gap: clamp(12px, 2.2vw, 34px);
+      }
+
+      /* cria uma “zona de respiro” pro menu */
+      nav {
+        justify-content: center;
+        padding-inline: clamp(14px, 3.2vw, 64px);
+        margin-inline: clamp(6px, 1.8vw, 22px);
+        overflow: visible;
+        /* evita cortar glow/sombra */
+      }
+
+      /* garante que as pontas não invadam o centro */
+      .brand {
+        justify-self: start;
+      }
+
+      .ctaRow {
+        justify-self: end;
+      }
+    }
   </style>
+
+  <!-- ativa modo JS antes de renderizar -->
+  <script>
+    document.documentElement.classList.add('js');
+  </script>
 </head>
 
 <body>
@@ -797,13 +1841,8 @@
   <header class="reveal" style="--d:0;">
     <div class="container">
       <div class="topbar">
-        <a class="brand" href="#" aria-label="VOLYNX Lab Education">
-          <span class="brandEye" aria-hidden="true">
-            <img src="assets/oficial-volynx-eye.png" alt="" />
-          </span>
-
-          <img class="brandLogo" src="assets/oficial-volynx-logo.png" alt="VOLYNX Lab" />
-
+        <a aria-label="VOLYNX Lab Education" class="brand" href="#">
+          <img alt="VOLYNX Lab" class="brandLogo" src="assets/oficial-volynx-logo.png" />
           <div class="txt">
             <strong>.LAB</strong>
             <span>Education</span>
@@ -818,8 +1857,10 @@
           <a href="#faq">FAQ</a>
         </nav>
 
+        <button aria-expanded="false" aria-label="Abrir menu" class="btn menuBtn" id="menuBtn"
+          type="button">Menu</button>
+
         <div class="ctaRow">
-          <button class="btn menuBtn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">Menu</button>
           <a class="btn" href="#planos">Ver planos</a>
           <a class="btn primary" href="#planos">Começar agora</a>
         </div>
@@ -828,7 +1869,7 @@
   </header>
 
   <!-- Mobile menu overlay -->
-  <div class="mobileMenu" id="mobileMenu" aria-hidden="true">
+  <div aria-hidden="true" class="mobileMenu" id="mobileMenu">
     <div class="mobileMenuCard">
       <a href="#curriculo">Currículo</a>
       <a href="#metodo">Método</a>
@@ -840,207 +1881,210 @@
 
   <main id="conteudo">
     <div class="container">
-      <section class="hero reveal" style="--d:1;" aria-label="Apresentação do curso">
+      <section aria-label="Apresentação do curso" class="hero reveal" style="--d:1;">
         <div class="heroGrid">
           <div>
-            <div class="kicker"><i aria-hidden="true"></i> Curso de Programação, sem ruído. Só progresso.</div>
-            <h1>Do zero ao primeiro projeto online com método, prática e direção.</h1>
+            <div class="kicker"><i aria-hidden="true"></i> Dev Journey, sem ruído. Só execução.</div>
+            <h1>Faça seu primeiro projeto online em 7 dias — sem vídeo, só entrega.</h1>
             <p class="lead">
-              Você vai aprender programação com uma trilha que não romantiza o caos: fundamentos sólidos, projetos reais,
-              revisão constante e um playbook que transforma “eu entendi” em “eu entreguei”.
+              Trilha autoguiada (texto + arquivos + checklists), com projetos que viram portfólio. Você sai do “eu
+              entendi” direto para o “eu publiquei”.
             </p>
-
             <div class="ctaRow" style="margin-top:10px;">
               <a class="btn primary" href="#planos">Quero entrar</a>
               <a class="btn" href="#curriculo">Ver currículo</a>
             </div>
-
-            <div class="bullets" aria-label="Destaques">
-              <div class="pill">
-                <div class="dot" aria-hidden="true"></div>
+            <div aria-label="Destaques" class="bullets">
+              <div class="bulletCard">
+                <div aria-hidden="true" class="dot"></div>
                 <div>
-                  <b>Aprendizado com checklist</b><br />
-                  <span>Sem “aula infinita”. Cada módulo fecha com entrega e validação.</span>
+                  <b>Sprint com entregas</b><br />
+                  <span>Curto, direto e publicável. Se não aparece na tela, não conta.</span>
                 </div>
               </div>
-              <div class="pill">
-                <div class="dot" aria-hidden="true"></div>
+              <div class="bulletCard">
+                <div aria-hidden="true" class="dot"></div>
                 <div>
-                  <b>Projetos que fazem portfólio</b><br />
-                  <span>Você sai com cases apresentáveis, não com exercícios descartáveis.</span>
+                  <b>Portfólio first</b><br />
+                  <span>Entregas apresentáveis: landing + interação + mini-app (dependendo do plano).</span>
                 </div>
               </div>
-              <div class="pill">
-                <div class="dot" aria-hidden="true"></div>
+              <div class="bulletCard">
+                <div aria-hidden="true" class="dot"></div>
                 <div>
-                  <b>Ritmo sustentável</b><br />
-                  <span>Rotina de estudo que encaixa na vida real: foco, não burnout.</span>
+                  <b>Autoguiado, sem enrolação</b><br />
+                  <span>Texto + exemplos + checklists. Screen recording só quando precisar (opcional).</span>
                 </div>
               </div>
-              <div class="pill">
-                <div class="dot" aria-hidden="true"></div>
+              <div class="bulletCard">
+                <div aria-hidden="true" class="dot"></div>
                 <div>
-                  <b>Stack moderna</b><br />
-                  <span>Fundamentos + prática aplicada em web, do jeito que o mercado pede.</span>
+                  <b>IA como acelerador (com critério)</b><br />
+                  <span>Prompts prontos + checklist de validação. Você usa IA sem virar refém.</span>
                 </div>
               </div>
             </div>
           </div>
-
-          <aside class="panel" aria-label="Resumo do programa">
-            <div class="seal" aria-label="Selo VOLYNX">
-              <img src="assets/oficial-volynx-eye.png" alt="Olho oficial VOLYNX" />
+          <aside aria-label="Resumo do programa" class="panel">
+            <div aria-label="Selo VOLYNX" class="seal">
+              <img alt="Olho oficial VOLYNX" src="assets/oficial-volynx-eye.png" />
             </div>
-
             <h3>O que você vai ter na mão</h3>
             <p>Uma trilha que vira execução. E execução vira resultado. Simples, mas não simplista.</p>
-
             <div class="stats" role="list">
               <div class="stat" role="listitem">
-                <strong>12 semanas</strong>
-                <span>Trilha estruturada + entregas semanais.</span>
+                <strong>Sprint guiada</strong>
+                <span>Blocos curtos + checkpoints (o que deve aparecer na tela).</span>
               </div>
               <div class="stat" role="listitem">
-                <strong>3 projetos</strong>
-                <span>Landing premium, app web, e um projeto final completo.</span>
+                <strong>Entregas</strong>
+                <span>Social (7 dias) ou Pro (7+5 dias). Publicado e versionado.</span>
               </div>
               <div class="stat" role="listitem">
-                <strong>Revisões</strong>
-                <span>Checkpoints para evitar “lacunas invisíveis”.</span>
+                <strong>Checkpoints</strong>
+                <span>“Você deve ver” + “se deu erro” (debug sem adivinhação).</span>
               </div>
               <div class="stat" role="listitem">
-                <strong>Templates</strong>
-                <span>Boilerplates e estruturas reutilizáveis.</span>
+                <strong>Formato</strong>
+                <span>Sem vídeo. Texto + arquivos + checklists + (opcional) gravação de tela.</span>
               </div>
             </div>
-
-            <div class="mini" aria-label="Tags do curso">
-              <span class="tag">Fundamentos</span>
+            <div aria-label="Tags do curso" class="mini">
+              <span class="tag">Social Sprint</span>
               <span class="tag">HTML • CSS • JS</span>
-              <span class="tag">Projetos reais</span>
-              <span class="tag">Portfólio</span>
+              <span class="tag">Checklists</span>
+              <span class="tag">Publicado</span>
             </div>
           </aside>
         </div>
       </section>
 
-      <section id="curriculo" class="reveal" style="--d:2;" aria-label="Currículo">
+      <section aria-label="Trilha por blocos" class="reveal" id="curriculo" style="--d:2;">
         <div class="sectionTitle">
           <div>
-            <h2>Currículo com progressão real</h2>
-            <p>Você evolui por blocos. Cada bloco fecha com entrega. Sem ficar assistindo aula "por esporte".</p>
+            <h2>Trilha por blocos (sem confusão)</h2>
+            <p>Você avança por entregas pequenas e visíveis. Se não aparece na tela, ainda não virou habilidade.</p>
+          </div>
+          <div aria-label="Filtrar por plano" class="chips" role="tablist">
+            <button class="chip active" data-filter="social" type="button">Social Sprint</button>
+            <button class="chip" data-filter="pro" type="button">Pro (Upgrade)</button>
+            <button class="chip" data-filter="bundle" type="button">Bundle</button>
+            <button class="chip" data-filter="all" type="button">Ver tudo</button>
           </div>
         </div>
-
-        <div class="accordions" role="region" aria-label="Módulos do curso">
-          <details open>
-            <summary>
-              <div class="sumLeft">
-                <div class="week">01–02</div>
-                <div class="sumTxt">
-                  <b>Base: lógica, web e mentalidade</b>
-                  <span>Ambiente, raciocínio, estrutura e disciplina de execução.</span>
-                </div>
-              </div>
-              <div class="chev" aria-hidden="true">›</div>
-            </summary>
-            <div class="content">
-              <ul>
-                <li>Como estudar programação de forma previsível.</li>
-                <li>Fundamentos de HTML/CSS e semântica para projetos que “parecem caros”.</li>
-                <li>Git básico para organizar evolução.</li>
-              </ul>
+        <div aria-label="Blocos do Dev Journey" class="roadmap">
+          <article class="blockCard" data-in="social pro bundle">
+            <div class="blockTop">
+              <span class="blockNum">Bloco 0</span>
+              <span class="badge">Start Here</span>
             </div>
-          </details>
+            <h3>Setup + como estudar do jeito certo</h3>
+            <p class="muted">Ambiente pronto, pasta organizada e o método VOLYNX para sair de erros sem travar por
+              horas.</p>
+            <ul class="mini">
+              <li>Editor + navegador + Live Server (o “porquê” e o “como”)</li>
+              <li>Checklist validável (você sabe quando está pronto)</li>
+              <li>Regras do certificado + links de submissão</li>
+            </ul>
+          </article>
 
-          <details>
-            <summary>
-              <div class="sumLeft">
-                <div class="week">03–05</div>
-                <div class="sumTxt">
-                  <b>JavaScript essencial (de verdade)</b>
-                  <span>Do básico ao que te faz construir coisas úteis.</span>
-                </div>
-              </div>
-              <div class="chev" aria-hidden="true">›</div>
-            </summary>
-            <div class="content">
-              <ul>
-                <li>Variáveis, funções, objetos, arrays, DOM e eventos.</li>
-                <li>Padrões de organização de código que deixam tudo fluido.</li>
-                <li>Debug como habilidade, não como sorte.</li>
-              </ul>
+          <article class="blockCard" data-in="social pro bundle">
+            <div class="blockTop">
+              <span class="blockNum">Bloco 1</span>
+              <span class="badge">Fundamentos</span>
             </div>
-          </details>
+            <h3>HTML + CSS + JS básico (com clique na tela)</h3>
+            <p class="muted">Primeiro projeto real: 3 arquivos conectados e uma interação funcionando na página (não só
+              no console).</p>
+            <ul class="mini">
+              <li>Estrutura semântica + layout responsivo simples</li>
+              <li>Botões, formulário e feedback visível</li>
+              <li>Debug básico: console, erros comuns e correções</li>
+            </ul>
+          </article>
 
-          <details>
-            <summary>
-              <div class="sumLeft">
-                <div class="week">06–08</div>
-                <div class="sumTxt">
-                  <b>Projetos: landing e UI de alta conversão</b>
-                  <span>Estrutura, copy, componentes e responsividade premium.</span>
-                </div>
-              </div>
-              <div class="chev" aria-hidden="true">›</div>
-            </summary>
-            <div class="content">
-              <ul>
-                <li>Design system na prática (tokens, grid, hierarquia, consistência).</li>
-                <li>Componentização e reutilização.</li>
-                <li>Performance e “polish” de interface.</li>
-              </ul>
+          <article class="blockCard" data-in="social pro bundle">
+            <div class="blockTop">
+              <span class="blockNum">Bloco 2</span>
+              <span class="badge">JavaScript + DOM</span>
             </div>
-          </details>
+            <h3>Interatividade de verdade</h3>
+            <p class="muted">Você aprende a manipular a página: eventos, validação, lógica e dados (inclui JSON com
+              exemplos práticos).</p>
+            <ul class="mini">
+              <li>Tipos, operadores, funções e eventos</li>
+              <li>DOM: selecionar, alterar, criar elementos</li>
+              <li>JSON: o que é, por que existe e onde você usa</li>
+            </ul>
+          </article>
 
-          <details>
-            <summary>
-              <div class="sumLeft">
-                <div class="week">09–10</div>
-                <div class="sumTxt">
-                  <b>Integrações e dados</b>
-                  <span>Do front “bonito” ao front que conversa com o mundo.</span>
-                </div>
-              </div>
-              <div class="chev" aria-hidden="true">›</div>
-            </summary>
-            <div class="content">
-              <ul>
-                <li>Consumo de APIs, estados e persistência simples.</li>
-                <li>Boas práticas para lidar com erros e UX de carregamento.</li>
-                <li>Segurança básica: o que não fazer.</li>
-              </ul>
+          <article class="blockCard" data-in="pro bundle">
+            <div class="blockTop">
+              <span class="blockNum">Bloco 3</span>
+              <span class="badge">Projeto incremental</span>
             </div>
-          </details>
+            <h3>Um app que cresce módulo a módulo</h3>
+            <p class="muted">Cada módulo adiciona uma feature visível. Você termina com um app apresentável e fácil de
+              explicar.</p>
+            <ul class="mini">
+              <li>Estado, componentes simples e organização de código</li>
+              <li>Persistência básica (ex.: localStorage) + UX</li>
+              <li>Publicação + checklist de qualidade</li>
+            </ul>
+          </article>
 
-          <details>
-            <summary>
-              <div class="sumLeft">
-                <div class="week">11–12</div>
-                <div class="sumTxt">
-                  <b>Projeto final e portfólio</b>
-                  <span>Entrega completa: página, app, documentação e apresentação.</span>
-                </div>
-              </div>
-              <div class="chev" aria-hidden="true">›</div>
-            </summary>
-            <div class="content">
-              <ul>
-                <li>Planejamento, execução, revisão e publicação.</li>
-                <li>Como apresentar seu projeto como case.</li>
-                <li>Checklist final: padrão profissional.</li>
-              </ul>
+          <article class="blockCard" data-in="bundle">
+            <div class="blockTop">
+              <span class="blockNum">Bloco 4</span>
+              <span class="badge">Camada avançada</span>
             </div>
-          </details>
+            <h3>Arquitetura + integração</h3>
+            <p class="muted">Você aprende padrões de projeto, integração e decisões “de produto” (o que fazer primeiro e
+              por quê).</p>
+            <ul class="mini">
+              <li>Refactor guiado: clareza, nomes, responsabilidade</li>
+              <li>Integrações e dados (fluxos comuns do mundo real)</li>
+              <li>Checklist anti-bugs antes de publicar</li>
+            </ul>
+          </article>
+
+          <article class="blockCard" data-in="bundle">
+            <div class="blockTop">
+              <span class="blockNum">Bloco 5</span>
+              <span class="badge">Entrega final</span>
+            </div>
+            <h3>Deploy + finalização profissional</h3>
+            <p class="muted">Você fecha o curso entregando algo completo: versão final, documentação e submissão do
+              projeto.</p>
+            <ul class="mini">
+              <li>Publicação e validação (GitHub)</li>
+              <li>Checklist final (responsivo, acessível, sem erros)</li>
+              <li>Submissão + emissão do certificado</li>
+            </ul>
+          </article>
+
+          <article class="blockCard arsenal" data-in="bundle">
+            <div class="blockTop">
+              <span class="blockNum">Arsenal</span>
+              <span class="badge">Bundle Only</span>
+            </div>
+            <h3>Pacote prático para acelerar</h3>
+            <p class="muted">Arquivos reutilizáveis para você construir mais rápido (e aprender por engenharia reversa).
+            </p>
+            <ul class="mini">
+              <li>1 site completo + 1 landing page</li>
+              <li>2 apps JavaScript prontos</li>
+              <li>Cheatcodes (atalhos e padrões de uso diário)</li>
+            </ul>
+          </article>
         </div>
       </section>
 
-      <section id="metodo" class="reveal" style="--d:3;" aria-label="Método">
+      <section aria-label="Método" class="reveal" id="metodo" style="--d:3;">
         <div class="sectionTitle">
           <h2>Método VOLYNX.Lab Education</h2>
           <p>Treinar execução. Aumentar clareza. Reduzir fricção. Parece simples porque é o caminho certo!</p>
         </div>
-
         <div class="grid3">
           <div class="card">
             <h3>1) Direção</h3>
@@ -1057,12 +2101,11 @@
         </div>
       </section>
 
-      <section id="projetos" class="reveal" style="--d:4;" aria-label="Projetos">
+      <section aria-label="Projetos" class="reveal" id="projetos" style="--d:4;">
         <div class="sectionTitle">
           <h2>Projetos que viram portfólio</h2>
           <p>Não é sobre “aprender”. É sobre construir ativos: páginas, apps e cases que te representam.</p>
         </div>
-
         <div class="grid3">
           <div class="card">
             <h3>Landing premium</h3>
@@ -1079,140 +2122,193 @@
         </div>
       </section>
 
-      <section id="planos" class="reveal" style="--d:5;" aria-label="Planos e inscrição">
+      <section aria-label="Planos" class="reveal" id="planos" style="--d:5;">
         <div class="sectionTitle">
-          <h2>Planos</h2>
-          <p>Escolha o nível de suporte. Você pode começar no mais baixo e escalar quando estiver pronto.</p>
+          <div>
+            <h2>Escolha seu plano</h2>
+            <p>Prioridade: fazer caixa com entrega rápida. Social é a porta de entrada — Pro vira upgrade natural.</p>
+          </div>
+          <div class="chips" aria-label="Moeda" style="justify-content:flex-end;">
+            <label class="muted2" for="currency" style="font-size:12.5px; margin-right:8px;">Moeda</label>
+            <select id="currency" class="chip" style="padding:8px 14px;">
+              <option value="BRL">BRL (R$)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="GBP">GBP (£)</option>
+            </select>
+          </div>
         </div>
 
         <div class="pricing">
-          <div class="priceCard">
-            <h3>Social Track</h3>
-            <p>Pra quem quer base e direção, com custo eficiente.</p>
-            <div class="price">
-              <strong>R$ 297</strong><span>à vista ou parcelado</span>
-            </div>
+          <div class="priceCard highlight">
+            <h3>Social Sprint</h3>
+            <p>Entrada mais rápida: landing + interatividade + publish. Sem vídeo, só execução.</p>
+            <div class="price"><strong data-price="social">R$ 197</strong><span data-note="social">Founder (por tempo
+                limitado)</span></div>
             <ul class="list">
-              <li>Acesso ao curso completo</li>
-              <li>Comunidade (assíncrona)</li>
-              <li>Atualizações do conteúdo</li>
+              <li><b>Inclui:</b> Blocos 0–2</li>
+              <li><b>Entrega:</b> landing publicada + form com validação + JSON na UI</li>
+              <li><b>Certificado:</b> Social (por entrega)</li>
+              <li><b>Ideal se:</b> você quer tração rápida e portfólio já</li>
             </ul>
-            <div class="priceActions">
-              <a class="btn primary" href="#checkout" data-plan="Social Track">Escolher Social</a>
-              <a class="btn" href="#faq">Tirar dúvidas</a>
-            </div>
-          </div>
-
-          <div class="priceCard featured">
-            <div class="badge">Mais escolhido</div>
-            <h3>Pro Track</h3>
-            <p>Mais foco, menos tentativa e erro.</p>
-            <div class="price">
-              <strong>R$ 497</strong><span>à vista ou parcelado</span>
-            </div>
-            <ul class="list">
-              <li>Tudo do Social Track</li>
-              <li>Templates personalizados e checklists</li>
-              <li>Roteiro de portfólio</li>
-            </ul>
-            <div class="priceActions">
-              <a class="btn primary" href="#checkout" data-plan="Pro Track">Escolher Pro</a>
-              <a class="btn" href="#curriculo">Ver módulos</a>
+            <div class="ctaRow">
+              <a class="btn primary" data-plan="social" href="#checkout">Comprar Social</a>
+              <a class="btn ghost" href="#curriculo">Ver trilha</a>
             </div>
           </div>
 
           <div class="priceCard">
-            <h3>Bundle</h3>
-            <p>Para acelerar: curso + extras estratégicos.</p>
-            <div class="price">
-              <strong>R$ 697</strong><span>à vista ou parcelado</span>
+            <div class="tag">Upgrade</div>
+            <h3>Pro (Upgrade)</h3>
+            <p>Adiciona o Bloco 3: app incremental (React) para elevar o portfólio.</p>
+            <div class="price"><strong data-price="pro">R$ 397</strong><span data-note="pro">Upgrade pós-Social</span>
             </div>
             <ul class="list">
-              <li>Tudo do Pro Track</li>
-              <li>Pacote extra de componentes</li>
-              <li>Modelos de propostas e briefing</li>
-              <li>Templates personalizados ao final do curso e checklists</li>
+              <li><b>Inclui:</b> Blocos 0–3</li>
+              <li><b>Entrega:</b> app React publicado + documentação curta (README)</li>
+              <li><b>Certificado:</b> Pro (por entrega)</li>
+              <li><b>Ideal se:</b> você quer “subir de nível” rápido</li>
             </ul>
-            <div class="priceActions">
-              <a class="btn primary" href="#checkout" data-plan="Bundle">Escolher Bundle</a>
-              <a class="btn" href="#projetos">Ver projetos</a>
+            <div class="ctaRow">
+              <a class="btn primary" data-plan="pro" href="#checkout">Comprar Pro</a>
+              <a class="btn ghost" href="#curriculo">Ver trilha</a>
             </div>
           </div>
-        </div>
 
-        <div id="checkout" style="margin-top:14px;">
-          <div class="card" style="border-radius:var(--radius); padding:18px;">
-            <h3 style="margin:0 0 8px;">Checkout</h3>
-
-            <div class="grid3" style="margin-top:14px;">
-              <div class="card" style="background: rgba(0,0,0,.14);">
-                <h3 class="mono" style="margin:0 0 8px;">01 • Plano</h3>
-                <p style="margin:0; color:var(--muted);">Selecionado: <b id="selectedPlan">Pro Track</b></p>
-              </div>
-              <div class="card" style="background: rgba(0,0,0,.14);">
-                <h3 class="mono" style="margin:0 0 8px;">02 • Pagamento</h3>
-                <p style="margin:0; color:var(--muted);">Redirecionar para o checkout.</p>
-              </div>
-              <div class="card" style="background: rgba(0,0,0,.14);">
-                <h3 class="mono" style="margin:0 0 8px;">03 • Entrega</h3>
-                <p style="margin:0; color:var(--muted);">Acesso automático + e-mail de boas-vindas.</p>
-              </div>
-            </div>
-
-            <div class="ctaRow" style="margin-top:14px;">
-              <a class="btn primary" href="#" aria-label="Ir para checkout real">Ir para o checkout</a>
-              <a class="btn" href="#faq" aria-label="Ver perguntas frequentes">Ver FAQ</a>
+          <div class="priceCard">
+            <h3>Bundle + Arsenal</h3>
+            <p>Curso completo + arquivos prontos para acelerar execução (mais profundo).</p>
+            <div class="price"><strong data-price="bundle">R$ 697</strong><span data-note="bundle">Para quando você
+                quiser ir até o fim</span></div>
+            <ul class="list">
+              <li><b>Inclui:</b> Blocos 0–5 + Arsenal</li>
+              <li><b>Entrega:</b> projeto final + pacote de reutilização</li>
+              <li><b>Certificado:</b> Bundle (por entrega)</li>
+              <li><b>Ideal se:</b> você quer profundidade máxima</li>
+            </ul>
+            <div class="ctaRow">
+              <a class="btn primary" data-plan="bundle" href="#checkout">Comprar Bundle</a>
+              <a class="btn ghost" href="#curriculo">Ver trilha</a>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="faq" class="reveal" style="--d:6;" aria-label="Perguntas frequentes">
-        <div class="sectionTitle">
-          <h2>FAQ</h2>
-          <p>Você também pode tirar suas duvidas entrando em contato com a VOLYNX através do "Suporte"</p>
+      <section aria-label="Checkout" class="reveal" id="checkout" style="--d:6;">
+        <div class="card big">
+          <div class="split">
+            <div>
+              <h2>Pronto para começar?</h2>
+              <p class="muted">
+                Escolha um plano acima e finalize a compra. Após a confirmação, você recebe acesso aos documentos e
+                arquivos do seu plano (com os projetos e checklists).
+              </p>
+              <p class="muted2" style="margin-top:10px">
+                Dica: se você é totalmente iniciante, comece pelo Social. Se quer portfólio mais forte, vá de Pro. Se
+                quer acelerar com arquivos prontos, Bundle.
+              </p>
+            </div>
+            <div class="ctaCol">
+              <div class="stat" style="margin-bottom:10px;">
+                <strong id="selPlan">Plano: Social Sprint</strong>
+                <span id="selMeta">Moeda: BRL • Acesso imediato após compra</span>
+              </div>
+              <a class="btn primary" href="#" id="hotmartLink">Ir para o checkout</a>
+              <a class="btn ghost" href="#faq">Ler o FAQ</a>
+              <p class="fineprint">Substitua os links do objeto <code>PLAN_LINKS</code> no final do arquivo pelos seus
+                links reais (Hotmart/Gumroad/Lemon).</p>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="faqGrid">
-          <div class="cardend">
-            <h3>Preciso saber algo antes?</h3>
-            <p>Não. Se você sabe usar computador e consegue manter constância, dá para começar.</p>
-          </div>
-          <div class="cardend">
-            <h3>Qual a carga semanal?</h3>
-            <p>Recomendação: 4 a 6 horas/semana. Consistência ganha de intensidade.</p>
-          </div>
-          <div class="cardend">
-            <h3>Vou sair empregado?</h3>
-            <p>Nenhum curso deveria vender fantasia. Você sai com base, projetos e apresentação.</p>
-          </div>
-          <div class="cardend">
-            <h3>Tem certificado?</h3>
-            <p>Sim, ao concluir o projeto final e checkpoints. Aqui, é consequência da entrega.</p>
-          </div>
+      <section aria-label="FAQ" class="reveal" id="faq" style="--d:6;">
+        <div class="sectionTitle">
+          <h2>FAQ (rápido)</h2>
+          <p>Poucas perguntas, respostas diretas. Sem enrolação.</p>
+        </div>
+        <div aria-label="Perguntas frequentes" class="accordions" role="region">
+          <details>
+            <summary>
+              <div class="sumLeft">
+                <div class="sumTxt"><b>Eu sou totalmente iniciante. Dá?</b><span class="muted">Sim — o curso ensina do
+                    “onde clicar” ao “o que deve aparecer”.</span></div>
+              </div>
+              <div aria-hidden="true" class="chev">›</div>
+            </summary>
+            <div class="content">
+              <ul>
+                <li>Você vai aprender a editar arquivos, salvar e atualizar o navegador.</li>
+                <li>Quando algo der errado, você terá “o que fazer” (não só teoria).</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="sumLeft">
+                <div class="sumTxt"><b>Tem vídeo, comunidade ou suporte?</b><span class="muted">Autoguiado (texto +
+                    arquivos). Gravação de tela é opcional.</span></div>
+              </div>
+              <div aria-hidden="true" class="chev">›</div>
+            </summary>
+            <div class="content">
+              <p style="margin:0;">É autoguiado: você recebe documentos + exemplos + arquivos + checklists. Se quiser,
+                use IA com prompts prontos e validação por checklist.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="sumLeft">
+                <div class="sumTxt"><b>Preciso de computador forte?</b><span class="muted">Não. Um PC básico já dá
+                    conta.</span></div>
+              </div>
+              <div aria-hidden="true" class="chev">›</div>
+            </summary>
+            <div class="content">
+              <ul>
+                <li>Windows, macOS ou Linux.</li>
+                <li>Recomendado: 8GB RAM, navegador atualizado e espaço livre.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="sumLeft">
+                <div class="sumTxt"><b>Como funciona o certificado?</b><span class="muted">Por entrega (projeto
+                    enviado).</span></div>
+              </div>
+              <div aria-hidden="true" class="chev">›</div>
+            </summary>
+            <div class="content">
+              <p style="margin:0;">Você entrega o projeto do seu plano e emite o certificado correspondente (Social /
+                Pro / Bundle).</p>
+            </div>
+          </details>
         </div>
       </section>
     </div>
   </main>
 
-  <footer class="reveal" style="--d:7;" aria-label="Rodapé">
+  <footer aria-label="Rodapé" class="reveal" style="--d:7;">
     <div class="container">
       <div class="foot">
         <div>
           <small>
             <b>VOLYNX.Lab Education</b><br />
             Foco em performance e impacto social a nivel mundial.<br />
-            Suporte: <span class="mono">hello@volynx.world</span>
+            Contato: <span class="mono">hello@volynx.world</span>
           </small>
-          <small style="margin-top:10px;">© <span id="year"></span> VOLYNX  -  Todos os direitos reservados.</small>
+          <small style="margin-top:10px;">© <span id="year"></span> VOLYNX - Todos os direitos reservados.</small>
         </div>
 
-        <div class="footBrand" aria-label="Marca VOLYNX">
+        <div aria-label="Marca VOLYNX" class="footBrand">
           <div class="footBrandEye">
-            <img src="assets/oficial-volynx-eye.png" alt="Olho oficial VOLYNX" />
+            <img alt="Olho oficial VOLYNX" src="assets/oficial-volynx-eye.png" />
           </div>
           <div class="footBrandLogo">
-            <img src="assets/oficial-volynx-logo.png" alt="Logo oficial VOLYNX" />
+            <img alt="Logo oficial VOLYNX" src="assets/oficial-volynx-logo.png" />
           </div>
         </div>
       </div>
@@ -1220,165 +2316,278 @@
   </footer>
 
   <script>
-  /* =========================================================
-     FIX DE TRAVA DE SCROLL NO LOAD (SEM MEXER NO VISUAL)
-     - remove "double scroll" no iOS/Safari
-     - evita scroll lock preso (overflow) no boot e no pageshow
-     - NÃO mexe no layout/efeitos: só na mecânica do menu/scroll
-     ========================================================= */
+    /* =========================================================
+       Menu mobile + scroll lock (robusto)
+       ========================================================= */
+    var menuBtn = document.getElementById('menuBtn');
+    var mobileMenu = document.getElementById('mobileMenu');
 
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
+    function unlockScroll() { document.body.style.overflow = ''; }
+    function lockScroll() { document.body.style.overflow = 'hidden'; }
 
-  // IMPORTANTE: para evitar barra de rolagem dupla, não mexa no html (documentElement).
-  // Trave/libere somente o BODY.
-  function unlockScroll(){
-    document.body.style.overflow = '';
-  }
-
-  function lockScroll(){
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu(){
-    if (mobileMenu) {
-      mobileMenu.style.display = 'none';
-      mobileMenu.setAttribute('aria-hidden', 'true');
+    function closeMenu() {
+      if (mobileMenu) {
+        mobileMenu.style.display = 'none';
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      }
+      if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+      unlockScroll();
     }
+
+    function openMenu() {
+      if (!mobileMenu || !menuBtn) return;
+      mobileMenu.style.display = 'block';
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      lockScroll();
+    }
+
+    closeMenu();
+    document.addEventListener('DOMContentLoaded', function () { closeMenu(); }, { once: true });
+    window.addEventListener('pageshow', closeMenu);
+
+    var yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
     if (menuBtn) {
-      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.addEventListener('click', function () {
+        var isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+        if (isOpen) closeMenu(); else openMenu();
+      });
     }
-    unlockScroll();
-  }
 
-  function openMenu(){
-    if (!mobileMenu || !menuBtn) return;
+    if (mobileMenu) {
+      mobileMenu.addEventListener('click', function (e) {
+        if (e.target === mobileMenu) closeMenu();
+      });
 
-    mobileMenu.style.display = 'block';
-    mobileMenu.setAttribute('aria-hidden', 'false');
-    menuBtn.setAttribute('aria-expanded', 'true');
+      var links = mobileMenu.querySelectorAll('a');
+      for (var i = 0; i < links.length; i++) links[i].addEventListener('click', closeMenu);
+    }
 
-    lockScroll();
-  }
+    /* =========================================================
+       Accordion: suave + apenas 1 aberto
+       ========================================================= */
+    var accordionEls = Array.prototype.slice.call(document.querySelectorAll('.accordions details'));
 
-  // Boot: nunca começar travado (e nunca manter lock por BFCache)
-  closeMenu();
-  document.addEventListener('DOMContentLoaded', closeMenu, { once: true });
-  window.addEventListener('pageshow', closeMenu);
+    function collapseDetails(details) {
+      var summary = details.querySelector('summary');
+      var content = details.querySelector('.content');
+      if (!summary || !content) return;
 
-  // Year
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // Accordion: suave + apenas 1 aberto (premium)
-  const accordionEls = Array.from(document.querySelectorAll('.accordions details'));
-
-  function collapseDetails(details) {
-    const summary = details.querySelector('summary');
-    const content = details.querySelector('.content');
-    if (!summary || !content) return;
-
-    const startHeight = details.offsetHeight;
-    const endHeight = summary.offsetHeight;
-
-    details.style.overflow = 'hidden';
-
-    const anim = details.animate(
-      [{ height: startHeight + 'px' }, { height: endHeight + 'px' }],
-      { duration: 260, easing: 'cubic-bezier(.2,.8,.2,1)' }
-    );
-
-    anim.onfinish = () => {
-      details.open = false;
-      details.style.height = '';
-      details.style.overflow = '';
-    };
-  }
-
-  function expandDetails(details) {
-    const summary = details.querySelector('summary');
-    const content = details.querySelector('.content');
-    if (!summary || !content) return;
-
-    accordionEls.forEach((o) => {
-      if (o !== details && o.open) collapseDetails(o);
-    });
-
-    const startHeight = details.offsetHeight;
-    details.open = true;
-
-    requestAnimationFrame(() => {
-      const endHeight = summary.offsetHeight + content.scrollHeight;
+      var startHeight = details.offsetHeight;
+      var endHeight = summary.offsetHeight;
 
       details.style.overflow = 'hidden';
 
-      const anim = details.animate(
+      var anim = details.animate(
         [{ height: startHeight + 'px' }, { height: endHeight + 'px' }],
-        { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' }
+        { duration: 260, easing: 'cubic-bezier(.2,.8,.2,1)' }
       );
 
-      anim.onfinish = () => {
+      anim.onfinish = function () {
+        details.open = false;
         details.style.height = '';
         details.style.overflow = '';
       };
-    });
-  }
+    }
 
-  accordionEls.forEach((d) => {
-    const summary = d.querySelector('summary');
-    if (!summary) return;
+    function expandDetails(details) {
+      var summary = details.querySelector('summary');
+      var content = details.querySelector('.content');
+      if (!summary || !content) return;
 
-    summary.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (d.open) collapseDetails(d);
-      else expandDetails(d);
-    });
-  });
+      for (var k = 0; k < accordionEls.length; k++) {
+        var o = accordionEls[k];
+        if (o !== details && o.open) collapseDetails(o);
+      }
 
-  // Plan selection hook
-  const selectedPlan = document.getElementById('selectedPlan');
-  document.querySelectorAll('[data-plan]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const plan = btn.getAttribute('data-plan');
-      if (selectedPlan) selectedPlan.textContent = plan;
-    });
-  });
+      var startHeight = details.offsetHeight;
+      details.open = true;
 
-  // Mobile menu
-  menuBtn?.addEventListener('click', () => {
-    const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
-    isOpen ? closeMenu() : openMenu();
-  });
+      requestAnimationFrame(function () {
+        var endHeight = summary.offsetHeight + content.scrollHeight;
+        details.style.overflow = 'hidden';
 
-  mobileMenu?.addEventListener('click', (e) => {
-    if (e.target === mobileMenu) closeMenu();
-  });
+        var anim = details.animate(
+          [{ height: startHeight + 'px' }, { height: endHeight + 'px' }],
+          { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' }
+        );
 
-  mobileMenu?.querySelectorAll('a').forEach((a) => {
-    a.addEventListener('click', closeMenu);
-  });
-
-  // Reveal on scroll (IntersectionObserver) - faster trigger
-  const revealEls = document.querySelectorAll('.reveal');
-
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          obs.unobserve(entry.target);
-        }
+        anim.onfinish = function () {
+          details.style.height = '';
+          details.style.overflow = '';
+        };
       });
-    }, {
-      root: null,
-      threshold: 0.02,
-      rootMargin: '0px 0px -22% 0px'
-    });
+    }
 
-    revealEls.forEach((el) => io.observe(el));
-  } else {
-    revealEls.forEach((el) => el.classList.add('is-visible'));
-  }
-</script>
+    for (var j = 0; j < accordionEls.length; j++) {
+      (function (d) {
+        var summary = d.querySelector('summary');
+        if (!summary) return;
+        summary.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (d.open) collapseDetails(d);
+          else expandDetails(d);
+        });
+      })(accordionEls[j]);
+    }
+
+    /* =========================================================
+       Reveal on scroll (IntersectionObserver)
+       ========================================================= */
+    var revealEls = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { root: null, threshold: 0.02, rootMargin: '0px 0px -22% 0px' });
+
+      revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+
+    /* =========================================================
+       Filter roadmap
+       ========================================================= */
+    (function () {
+      var chips = document.querySelectorAll('.chip[data-filter]');
+      var cards = document.querySelectorAll('.blockCard[data-in]');
+      if (!chips.length || !cards.length) return;
+
+      function apply(filter) {
+        cards.forEach(function (card) {
+          var allowed = (card.getAttribute('data-in') || '').trim().split(/\s+/);
+          var show = (filter === 'all') || allowed.indexOf(filter) !== -1;
+          card.classList.toggle('is-dim', !show);
+        });
+      }
+
+      chips.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          chips.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          apply(btn.dataset.filter);
+        });
+      });
+
+      apply('social');
+    })();
+
+    /* =========================================================
+       Pricing + checkout (plan selection + currency)
+       ========================================================= */
+    (function () {
+      var currencySel = document.getElementById('currency');
+
+      // Substitua estes links pelos seus links reais (Hotmart/Gumroad/Lemon)
+      var PLAN_LINKS = {
+        BRL: { social: "#", pro: "#", bundle: "#" },
+        EUR: { social: "#", pro: "#", bundle: "#" },
+        GBP: { social: "#", pro: "#", bundle: "#" }
+      };
+
+      var PRICES = {
+        BRL: { social: "R$ 197", pro: "R$ 397", bundle: "R$ 697" },
+        EUR: { social: "€ 39", pro: "€ 99", bundle: "€ 249" },
+        GBP: { social: "£ 35", pro: "£ 89", bundle: "£ 219" }
+      };
+
+      var NOTES = {
+        BRL: { social: "Founder (por tempo limitado)", pro: "Upgrade pós-Social", bundle: "Curso completo" },
+        EUR: { social: "Founder", pro: "Upgrade", bundle: "Full bundle" },
+        GBP: { social: "Founder", pro: "Upgrade", bundle: "Full bundle" }
+      };
+
+      var selectedPlan = "social";
+      var selectedCur = "BRL";
+
+      function setText(id, text) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = text;
+      }
+
+      function updatePrices() {
+        var cur = selectedCur;
+        var nodes = document.querySelectorAll('[data-price]');
+        for (var i = 0; i < nodes.length; i++) {
+          var plan = nodes[i].getAttribute('data-price');
+          nodes[i].textContent = (PRICES[cur] && PRICES[cur][plan]) ? PRICES[cur][plan] : nodes[i].textContent;
+        }
+
+        var noteNodes = document.querySelectorAll('[data-note]');
+        for (var j = 0; j < noteNodes.length; j++) {
+          var p = noteNodes[j].getAttribute('data-note');
+          noteNodes[j].textContent = (NOTES[cur] && NOTES[cur][p]) ? NOTES[cur][p] : noteNodes[j].textContent;
+        }
+
+        setText('selMeta', 'Moeda: ' + cur + ' • Acesso imediato após compra');
+      }
+
+      function updateCheckout() {
+        var linkBtn = document.getElementById('hotmartLink');
+        if (linkBtn) {
+          var href = (PLAN_LINKS[selectedCur] && PLAN_LINKS[selectedCur][selectedPlan]) ? PLAN_LINKS[selectedCur][selectedPlan] : "#";
+          linkBtn.setAttribute('href', href);
+        }
+        var planName = (selectedPlan === "social") ? "Social Sprint" : (selectedPlan === "pro") ? "Pro (Upgrade)" : "Bundle + Arsenal";
+        setText('selPlan', 'Plano: ' + planName);
+      }
+
+      // Currency default via querystring (?currency=EUR)
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var q = (params.get('currency') || '').toUpperCase();
+        if (q === 'EUR' || q === 'GBP' || q === 'BRL') selectedCur = q;
+      } catch (e) { }
+
+      if (currencySel) {
+        currencySel.value = selectedCur;
+        currencySel.addEventListener('change', function () {
+          selectedCur = currencySel.value || 'BRL';
+          updatePrices();
+          updateCheckout();
+        });
+      }
+
+      // Plan selection
+      var buyBtns = document.querySelectorAll('[data-plan]');
+      for (var k = 0; k < buyBtns.length; k++) {
+        buyBtns[k].addEventListener('click', function (e) {
+          var p = this.getAttribute('data-plan');
+          if (p) selectedPlan = p;
+          updateCheckout();
+        });
+      }
+
+      updatePrices();
+      updateCheckout();
+    })();
+
+  </script>
+
+  <script>
+    (function () {
+      const header = document.querySelector('header');
+      if (!header) return;
+
+      const apply = () => {
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        // +14px de respiro para o título aparecer “inteiro”
+        document.documentElement.style.setProperty('--navOffset', (h + 14) + 'px');
+      };
+
+      apply();
+      window.addEventListener('resize', apply, { passive: true });
+    })();
+  </script>
+
 </body>
+
 </html>
