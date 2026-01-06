@@ -168,7 +168,7 @@
 
       body::before,
       body::after {
-        position: absolute;
+        position: fixed;
       }
     }
 
@@ -991,6 +991,10 @@
         display: none;
       }
 
+      .sectiontitle h2 {
+        line-height: 1.5;
+      }
+
       .brandEye {
         display: none !important;
       }
@@ -1090,6 +1094,7 @@
     @media (max-width: 480px) {
       .hero {
         padding: 20px 0 16px;
+
       }
 
       .kicker {
@@ -1821,10 +1826,6 @@
     .foot small {
       color: rgba(255, 255, 255, 0.81);
       line-height: 1.8;
-      border: 2px outset #ffffff38;
-      padding: 16px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #ffffff6b;
     }
 
 
@@ -1901,6 +1902,179 @@
 
       .ctaRow {
         justify-self: end;
+      }
+
+      /* =========================================================
+   RESPONSIVE PATCH (mobile-first overrides)
+   Cola no FINAL do <style>
+   ========================================================= */
+
+      /* 1) Evita “corte”/overlap por z-index e garante conteúdo acima do bg */
+      header,
+      main,
+      footer {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* 2) Desktop grid: remove centralização que pode gerar “empurra-empurra” */
+      .topbar {
+        justify-items: stretch;
+        /* era center */
+      }
+
+      .brand {
+        justify-self: start;
+      }
+
+      nav {
+        justify-self: center;
+      }
+
+      .ctaRow {
+        justify-self: end;
+        margin-right: 0 !important;
+      }
+
+      /* mata o -10% */
+
+      /* 3) Títulos: line-height muito baixo estava “cortando” visualmente */
+      .sectionTitle h2 {
+        line-height: 1.15 !important;
+        /* era 0.5 */
+      }
+
+      /* 4) Pricing: remove hardcodes que estouram no mobile */
+      .priceCardHighlight p,
+      .priceCardUpgrade p,
+      .priceCardComplete p {
+        width: auto !important;
+        /* era 320px */
+        max-width: 60ch;
+      }
+
+      /* H3 do upgrade tinha margem negativa e quebra layout em telas pequenas */
+      .priceCardUpgrade h3 {
+        margin-top: 8px !important;
+        /* era -40px */
+      }
+
+      /* 5) Tags do painel: nowrap + font gigante = overflow */
+      .panel .mini {
+        grid-template-columns: 1fr;
+      }
+
+      .tag {
+        white-space: normal !important;
+        /* permite quebrar linha */
+        overflow: visible !important;
+        font-size: clamp(14px, 4.2vw, 20px) !important;
+        padding: 12px 14px !important;
+      }
+
+      /* 6) Header mobile: remove SCALE/OFFSETS que detonam responsividade */
+      @media (max-width: 980px) {
+
+        .topbar {
+          grid-template-columns: 1fr auto;
+          grid-template-areas:
+            "brand menu"
+            "cta   cta";
+          gap: 10px;
+        }
+
+        .brand {
+          width: auto !important;
+          height: auto !important;
+          scale: 1 !important;
+          /* era 1.8 */
+          margin: 0 !important;
+          padding: 6px 0;
+        }
+
+        .brandLogo {
+          width: clamp(104px, 30vw, 150px) !important;
+          margin: 0 !important;
+          /* mata margens negativas */
+          filter: drop-shadow(0 0 6px rgba(82, 197, 224, .55));
+        }
+
+        .brand .txt {
+          right: auto !important;
+          top: auto !important;
+          transform: none !important;
+          margin-left: 8px;
+        }
+
+        .brand .txt strong {
+          margin: 0 0 4px 0 !important;
+          letter-spacing: 2.2px;
+        }
+
+        .brand .txt span {
+          transform: none !important;
+          letter-spacing: 1.6px;
+        }
+
+        #menuBtn {
+          margin: 0 !important;
+          /* era margin-bottom:25px */
+          box-shadow: none !important;
+          /* se quiser glow, faz via hover */
+        }
+
+        .ctaRow {
+          margin: 0 !important;
+          width: 100%;
+        }
+
+        .ctaRow .btn {
+          width: 100%;
+          min-height: 44px;
+        }
+
+        /* Kicker/hero mais “respirado” */
+        .kicker {
+          padding: 12px 14px;
+          font-size: 13px;
+        }
+
+        /* Bullets/cards com menos sombra “pesada” no mobile */
+        .bulletCard,
+        .stat,
+        .card,
+        .blockCard,
+        .accordions {
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, .10), var(--shadow2);
+        }
+      }
+
+      /* 7) Footer: imagens estavam com padding/margem que estouram em telas menores */
+      @media (max-width: 720px) {
+        .foot {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .footBrand {
+          justify-content: center;
+          gap: 10px;
+          padding: 10px 12px;
+        }
+
+        .footBrandEye img {
+          width: 56px;
+          height: 56px;
+          margin: 0 !important;
+          scale: 1 !important;
+        }
+
+        .footBrandLogo img {
+          height: auto !important;
+          width: min(220px, 70vw) !important;
+          padding-left: 0 !important;
+          margin-left: 0 !important;
+        }
       }
     }
   </style>
@@ -2655,7 +2829,7 @@
 
       const apply = () => {
         const h = Math.ceil(header.getBoundingClientRect().height);
-        // +14px de respiro para o título aparecer “inteiro”
+
         document.documentElement.style.setProperty('--navOffset', (h + 14) + 'px');
       };
 
