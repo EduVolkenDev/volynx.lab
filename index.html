@@ -15,7 +15,7 @@
     property="og:description" />
   <meta content="website" property="og:type" />
   <meta content="index,follow" name="robots" />
-  <link rel="preload" as="image" href="./assets/nebula-abstract.webp" />
+  <link rel="preload" as="image" href="./assets/stardust-galaxy.webp" />
 
 
   <style>
@@ -129,7 +129,7 @@
       overflow-x: hidden;
       position: relative;
       isolation: isolate;
-      -webkit-text-size-adjust: 100%;
+      -webkit-text-size-adjust: none;
       font-size: var(--base);
       letter-spacing: .01em;
       background: none;
@@ -140,7 +140,7 @@
       content: "";
       position: fixed;
       inset: 0;
-      background: url("./assets/tarantula-nebula.webp") center / cover no-repeat;
+      background: url("./assets/stardust-galaxy.webp") center / cover no-repeat;
       transform: translateZ(0);
       z-index: 0;
       opacity: .45;
@@ -218,7 +218,6 @@
     .js .reveal {
       opacity: 0;
       transform: translateY(10px);
-      will-change: opacity, transform;
     }
 
     .js .reveal.is-visible {
@@ -244,7 +243,6 @@
 
       .js .reveal {
         filter: blur(5px);
-        will-change: opacity, transform, filter;
       }
 
       .js .reveal.is-visible {
@@ -439,15 +437,10 @@
 
 
     .brand .txt strong {
-
       font-size: var(--sm);
-
-      letter-spacing: 2.9px;
-
+      letter-spacing: 2.1px;
       text-transform: uppercase;
-
-      margin: 10px 0 4px 0;
-
+      margin: 4px 0 4px 0;
       text-shadow: 0px 0px 10px rgba(0, 122, 255, .30);
 
     }
@@ -507,9 +500,9 @@
 
     nav a:hover {
 
-      background: rgba(250, 250, 250, 0.787);
+      background: rgba(250, 250, 250, 0.78);
 
-      box-shadow: inset 0 0 1px inset rgba(253, 254, 254, 0.763);
+      box-shadow: inset 0 0 1px inset rgba(253, 254, 254, 0.73);
 
     }
 
@@ -804,14 +797,13 @@
 
     .seal {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 6px;
+      right: 6px;
       width: 62px;
       height: 48px;
       border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, .14);
-      background: rgba(255, 255, 255, .04);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+      background: rgba(97, 186, 230, 0.36);
+      box-shadow: 0 0px 6px inset rgba(251, 249, 255, 0.94);
       display: grid;
       place-items: center;
       overflow: hidden;
@@ -876,11 +868,11 @@
     }
 
     .tag {
-      padding: clamp(10px, 1.2vw, 14px) clamp(14px, 3.4vw, 34px);
+      padding: clamp(16px, 1.2vw, 14px) clamp(14px, 3.4vw, 34px);
       box-shadow: -15px -15px 34px inset #5516c06e, 15px 15px 34px inset #12ccc482;
       border-radius: 15px;
-      font-size: clamp(14px, 1.9vw, 28px);
-      margin: -4px;
+      font-size: clamp(18px, 1.9vw, 28px);
+      margin: -2px;
       display: flex;
       font-family: var(--display);
       font-weight: 800;
@@ -1019,11 +1011,11 @@
 
       .brand {
         grid-area: brand;
-        width: 120px;
-        height: 110px;
+        width: 125px;
+        height: 60px;
         scale: 1.8;
         margin-bottom: 20px;
-        margin-right: 40px;
+        margin-right: 88px;
       }
 
       .brand .txt {
@@ -1034,7 +1026,7 @@
 
       #menuBtn {
         grid-area: menu;
-        margin-bottom: 25px;
+        margin-bottom: 10px;
         box-shadow: 0 0 10px #e77575cf;
       }
 
@@ -1067,7 +1059,7 @@
     }
 
     /* Mini mobile */
-    @media (max-width: 560px) {
+    @media (max-width: 560px) and (min-width: 481px) {
       .brandLogo {
         width: 108px;
         margin: -8px 12px -8px -5px;
@@ -1111,7 +1103,13 @@
       }
 
       .panel {
-        padding: 14px;
+        padding: 22px;
+        margin-bottom: 10px;
+      }
+
+      .sectionTitle h2 {
+        line-height: 1.5;
+        font-size: 13px;
       }
     }
 
@@ -1144,17 +1142,27 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 14px;
-      margin: 6px 0 0;
+      margin: 6px 10px 0px;
       flex-wrap: wrap;
+      border-top: 1px outset #dbdbdb3b;
+      padding-top: 65px;
     }
 
     .sectionTitle h2 {
       font-size: var(--h2);
       letter-spacing: 0.95px;
-      margin: 0;
-      line-height: 0.5;
+      margin: 0px 1px;
+      line-height: 1.2;
+      /* era 0.5 (isso causava sobreposição) */
       font-family: var(--display);
       text-shadow: 0 0 3px #f5e7ff, 0 0 5px #00f6f6;
+    }
+
+    @media (max-width: 350px) {
+      .sectionTitle h2 {
+        line-height: 1.2;
+        /* !important não precisa se a ordem estiver certa */
+      }
     }
 
     .sectionTitle p {
@@ -1308,15 +1316,15 @@
       font-size: var(--xxs);
       padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(255, 255, 255, .05);
-      color: rgba(255, 255, 255, .82);
+      border: 1px inset rgba(255, 255, 255, 0.77);
+      background: rgba(176, 176, 176, 0.27);
+      color: rgb(255, 255, 255);
       white-space: nowrap;
     }
 
     .blockCard h3 {
-      margin: 0 0 6px;
-      font-size: 18px;
+      margin: 0px 6px 6px;
+      font-size: 17px;
       font-family: var(--display);
     }
 
@@ -1334,6 +1342,7 @@
 
     .muted {
       color: var(--muted);
+      padding: 0px 10px;
     }
 
     .muted2 {
@@ -1940,7 +1949,7 @@
 
       /* 3) Títulos: line-height muito baixo estava “cortando” visualmente */
       .sectionTitle h2 {
-        line-height: 1.15 !important;
+        line-height: 1.2 !important;
         /* era 0.5 */
       }
 
@@ -1976,11 +1985,15 @@
       @media (max-width: 980px) {
 
         .topbar {
+          display: grid;
           grid-template-columns: 1fr auto;
+          grid-template-rows: auto auto;
+          gap: 12px;
+          padding: 0px 25px 0px 25px;
+          align-items: center;
           grid-template-areas:
             "brand menu"
-            "cta   cta";
-          gap: 10px;
+            "cta   cta ";
         }
 
         .brand {
@@ -2074,6 +2087,12 @@
           width: min(220px, 70vw) !important;
           padding-left: 0 !important;
           margin-left: 0 !important;
+        }
+      }
+
+      @media (max-width: 350px) {
+        .sectionTitle h2 {
+          line-height: 1.2 !important;
         }
       }
     }
@@ -2188,7 +2207,7 @@
               </div>
               <div class="stat" role="listitem">
                 <strong>Entregas</strong>
-                <span>Social (7 dias) ou Pro (7+5 dias). Publicado e versionado.</span>
+                <span>Social (7 dias) ou Pro (7 + 5 dias). Publicado e versionado.</span>
               </div>
               <div class="stat" role="listitem">
                 <strong>Checkpoints</strong>
@@ -2213,7 +2232,9 @@
         <div class="sectionTitle">
           <div>
             <h2>Trilha por blocos (sem confusão)</h2>
-            <p>Você avança por entregas pequenas e visíveis. Se não aparece na tela, ainda não virou habilidade.</p>
+            <p>Você avança por entregas pequenas e visíveis. Se não aparece na tela, ainda não virou habilidade.
+              Selecione seu nivel
+              para ver:</p>
           </div>
           <div aria-label="Filtrar por plano" class="chips" role="tablist">
             <button class="chip active" data-filter="social" type="button">Social Sprint</button>
@@ -2274,8 +2295,8 @@
               <span class="badge">Projeto incremental</span>
             </div>
             <h3>Um app que cresce módulo a módulo</h3>
-            <p class="muted">Cada módulo adiciona uma feature visível. Você termina com um app apresentável e fácil de
-              explicar.</p>
+            <p class="muted">Cada módulo adiciona uma feature visível. Você termina com
+              um app apresentável e fácil de explicar.</p>
             <ul class="mini">
               <li>Estado, componentes simples e organização de código</li>
               <li>Persistência básica (ex.: localStorage) + UX</li>
@@ -2289,11 +2310,11 @@
               <span class="badge">Camada avançada</span>
             </div>
             <h3>Arquitetura + integração</h3>
-            <p class="muted">Você aprende padrões de projeto, integração e decisões “de produto” (o que fazer primeiro e
-              por quê).</p>
+            <p class="muted">Você aprende padrões de projeto, integração e decisões “de produto”
+              (o que fazer primeiro e por quê).</p>
             <ul class="mini">
-              <li>Refactor guiado: clareza, nomes, responsabilidade</li>
-              <li>Integrações e dados (fluxos comuns do mundo real)</li>
+              <li>Refactor guiado: clareza desde nomes e tags até responsabilidade</li>
+              <li>Integrações e dados (fluxos comuns do mercado)</li>
               <li>Checklist anti-bugs antes de publicar</li>
             </ul>
           </article>
@@ -2304,23 +2325,23 @@
               <span class="badge">Entrega final</span>
             </div>
             <h3>Deploy + finalização profissional</h3>
-            <p class="muted">Você fecha o curso entregando algo completo: versão final, documentação e submissão do
-              projeto.</p>
+            <p class="muted">Você fecha o curso entregando algo completo: documentação e submissão, a
+              versão final do seu projeto.</p>
             <ul class="mini">
               <li>Publicação e validação (GitHub)</li>
-              <li>Checklist final (responsivo, acessível, sem erros)</li>
+              <li>Checklist final (responsivo, acessível, funcional)</li>
               <li>Submissão + emissão do certificado</li>
             </ul>
           </article>
 
           <article class="blockCard arsenal" data-in="bundle">
             <div class="blockTop">
-              <span class="blockNum">Arsenal</span>
+              <span class="blockNum">Kit Arsenal</span>
               <span class="badge">Bundle Only</span>
             </div>
-            <h3>Pacote prático para acelerar</h3>
-            <p class="muted">Arquivos reutilizáveis para você construir mais rápido (e aprender por engenharia reversa).
-            </p>
+            <h3>Um brinde da VOLYNX pra acelerar seu progresso durante e depois do curso!</h3>
+            <p class="muted">Arquivos reutilizáveis para você construir mais rápido
+              (e aprender por engenharia reversa).</p>
             <ul class="mini">
               <li>1 site completo + 1 landing page</li>
               <li>2 apps JavaScript prontos</li>
@@ -2338,7 +2359,7 @@
         <div class="grid3">
           <div class="card">
             <h3>1) Direção</h3>
-            <p>Você sabe o que fazer e por quê. Nada de “vou ver um vídeo e tentar”.</p>
+            <p>Você sabe o que fazer e por quê. Nada de “vou tentar”.</p>
           </div>
           <div class="card">
             <h3>2) Entrega</h3>
@@ -2354,7 +2375,7 @@
       <section aria-label="Projetos" class="reveal" id="projetos" style="--d:4;">
         <div class="sectionTitle">
           <h2>Projetos que viram portfólio</h2>
-          <p>Não é sobre “aprender”. É sobre construir ativos: páginas, apps e cases que te representam.</p>
+          <p>Não é só sobre “aprender”. É sobre construir ativos: páginas, apps e cases que te representam.</p>
         </div>
         <div class="grid3">
           <div class="card">
@@ -2376,7 +2397,6 @@
         <div class="sectionTitle">
           <div>
             <h2>Escolha seu plano</h2>
-            <p>Prioridade: fazer caixa com entrega rápida. Social é a porta de entrada — Pro vira upgrade natural.</p>
           </div>
           <div class="chips" aria-label="Moeda" style="justify-content:flex-end;">
             <label class="muted2" for="currency" style="font-size:12.5px; margin-right:8px;">Moeda</label>
@@ -2391,14 +2411,14 @@
         <div class="pricing">
           <div class="priceCardHighlight">
             <h3>Social Sprint</h3>
-            <p>Entrada mais rápida: landing + interatividade + publish. Sem vídeo, só execução.</p>
+            <p>Comece já com evolução rápida: landing + interatividade + publish. Foco em execução.</p>
             <div class="price"><strong data-price="social">R$ 197</strong><span data-note="social">Founder (por tempo
                 limitado)</span></div>
             <ul class="list">
               <li><b>Inclui:</b> Blocos 0–2</li>
               <li><b>Entrega:</b> landing publicada + form com validação + JSON na UI</li>
               <li><b>Certificado:</b> Social (por entrega)</li>
-              <li><b>Ideal se:</b> você quer tração rápida e portfólio já</li>
+              <li><b>Ideal se:</b> você quer tração rápida e portfólio pra já!</li>
             </ul>
             <div class="ctaRow">
               <a class="btn primary" data-plan="social" href="#checkout">Comprar Social</a>
@@ -2408,9 +2428,9 @@
 
           <div class="priceCardUpgrade">
             <div class="uptag">Upgrade</div>
-            <h3>Pro (Upgrade)</h3>
+            <h3>Pro</h3>
             <p>Adiciona o Bloco 3: app incremental (React) para elevar o portfólio.</p>
-            <div class="price"><strong data-price="pro">R$ 397</strong><span data-note="pro">Upgrade pós-Social</span>
+            <div class="price"><strong data-price="pro">R$ 589</strong><span data-note="pro">Upgrade pós-Social</span>
             </div>
             <ul class="list">
               <li><b>Inclui:</b> Blocos 0–3</li>
@@ -2426,8 +2446,8 @@
 
           <div class="priceCardComplete">
             <h3>Bundle + Arsenal</h3>
-            <p>Curso completo + arquivos prontos para acelerar execução (mais profundo).</p>
-            <div class="price3"><strong data-price="bundle">R$ 697</strong><span data-note="bundle">Para quando você
+            <p>Curso completo + arquivos prontos para acelerar execução.</p>
+            <div class="price3"><strong data-price="bundle">R$ 879</strong><span data-note="bundle">Para quando você
                 quiser ir até o fim</span></div>
             <ul class="list3">
               <li><b>Inclui:</b> Blocos 0–5 + Arsenal</li>
@@ -2447,10 +2467,11 @@
         <div class="card big">
           <div class="split">
             <div>
-              <h2>Pronto para começar?</h2>
+              <h2>Vamos começar?</h2>
               <p class="muted">
-                Escolha um plano acima e finalize a compra. Após a confirmação, você recebe acesso aos documentos e
-                arquivos do seu plano (com os projetos e checklists).
+                Escolha um plano acima e finalize a compra. Após a confirmação do seu pagamento, você recebe o acesso ao
+                curso e todos
+                os arquivos do seu plano (com os projetos e checklists).
               </p>
               <p class="muted2" style="margin-top:10px">
                 Dica: se você é totalmente iniciante, comece pelo Social. Se quer portfólio mais forte, vá de Pro. Se
@@ -2460,12 +2481,10 @@
             <div class="ctaCol">
               <div class="stat" style="margin-bottom:10px;">
                 <strong id="selPlan">Plano: Social Sprint</strong>
-                <span id="selMeta">Moeda: BRL • Acesso imediato após compra</span>
+                <span id="selMeta">• Acesso imediato após confirmação do pagamento!</span>
               </div>
               <a class="btn primary" href="#" id="hotmartLink">Ir para o checkout</a>
               <a class="btn ghost" href="#faq">Ler o FAQ</a>
-              <p class="fineprint">Substitua os links do objeto <code>PLAN_LINKS</code> no final do arquivo pelos seus
-                links reais (Hotmart/Gumroad/Lemon).</p>
             </div>
           </div>
         </div>
@@ -2473,8 +2492,7 @@
 
       <section aria-label="FAQ" class="reveal" id="faq" style="--d:6;">
         <div class="sectionTitle">
-          <h2>FAQ (rápido)</h2>
-          <p>Poucas perguntas, respostas diretas. Sem enrolação.</p>
+          <h2>FAQ</h2>
         </div>
         <div aria-label="Perguntas frequentes" class="accordions" role="region">
           <details>
